@@ -46,26 +46,21 @@ function NavBar() {
           <ul className={click ? 'nav-menu active': 'nav-menu'}>
             <li className="nav-item">
               <Link to="/" className="nav-links" onClick={closeMobileMenu}>
-                Home
+                Trang chủ
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/services" className="nav-links" onClick={closeMobileMenu}>
-                Services
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/products" className="nav-links" onClick={closeMobileMenu}>
-                Product
+              <Link to="/my-flight" className="nav-links" onClick={closeMobileMenu}>
+                Chuyến bay của tôi
               </Link>
             </li>
             <li className="nav-item">
               <Link to="/sign-up" className="nav-links-mobile" onClick={closeMobileMenu}>
-                Sign Up
+                Sign In
               </Link>
             </li>
           </ul>
-          {button && <Button buttonStyle="btn--outline">SIGN UP</Button>}
+          {button && <Button buttonStyle="btn--outline">SIGN IN</Button>}
         </div>
       </nav>
     </div>

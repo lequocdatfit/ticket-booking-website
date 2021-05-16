@@ -1,19 +1,21 @@
 import React from 'react';
-import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
+import { Router as Router, Link, Route } from 'react-router-dom';
 import NavBar from './components/Navbar';
+import Home from './components/pages/Home';
+import history from './history';
+import SelectFlight from './components/SelectFlight';
 import './App.css';
+
 
 function App() {
   return (
-    <Router>
+    <Router history={history} >
       <NavBar />
       <Route path="/" exact component={Home} />
+      <Route path="/select-flight" component={SelectFlight} />
     </Router>
   )
 }
 
-const Home = () => {
-  return <h1>Home</h1>
-}
 
 export default App;
