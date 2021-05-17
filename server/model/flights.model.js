@@ -7,8 +7,8 @@ const flightSchema = new Schema({
   airliner: { type: Schema.Types.ObjectId, ref: 'Airliners' },
   takeOffTime: Date,
   landingTime: Date,
-  startFrom: String,
-  destination: String,
+  startFrom: { type: Schema.Types.ObjectId, ref: 'Airports' },
+  destination: { type: Schema.Types.ObjectId, ref: 'Airports' },
   type: String,
   price: Schema.Types.Mixed,
   seat: [{ seatType: String, amount: Number }],
@@ -22,10 +22,10 @@ module.export = {
     return flightModel.create(flight);
   },
   find: (query) => {
-    return flightModel.find(query);
+    return flightModel.find(query).populate();
   },
   findById: (_id) => {
-    return flightModel.findById(_id);
+    return flightModel.findById(_id).populate();
   },
   update: (_id) => {
     return flightModel.findByIdAndUpdate(_id);

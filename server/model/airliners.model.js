@@ -24,8 +24,8 @@ module.exports = {
   findById: (_id) => {
     return airlineModel.findById(_id);
   },
-  update: (_id) => {
-    return airlineModel.findByIdAndUpdate(_id);
+  update: (_id, data) => {
+    return airlineModel.findByIdAndUpdate(_id, data);
   },
   delete: (_id) => {
     return airlineModel.findByIdAndDelete(_id);
