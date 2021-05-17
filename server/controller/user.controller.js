@@ -39,9 +39,11 @@ module.exports.userRegistaion = async (req, res) => {
 
 module.exports.getUser = async (req, res) => {
   let user = await userModel.findById(req.params.id);
-  user = user.toJSON();
-  delete user.__v;
-  delete user.hashedPassword;
+  if (user) {
+    user = user.toJSON();
+    delete user.__v;
+    delete user.hashedPassword;
+  }
   //console.log(user);
   // if (!user) {
   //   return res.status(404).json({ errors: ['Not found'] });
@@ -56,8 +58,10 @@ module.exports.patchById = async (req, res) => {
     req.body.hashedPassword = salt + "$" + hash;
   }
   userModel.patchUser(req.params.id, req.body).then((result) => {
-    result = result.toJSON();
-    delete result.hashedPassword;
+    if (result) {
+      result = result.toJSON();
+      delete result.hashedPassword;
+    }
     res.status(200).json(result);
   });
   // if (updatedUser.hashedPassword != null)
@@ -87,7 +91,7 @@ module.exports.listUser = async (req, res) => {
     res.status(200).json(users);
   } catch (e) {
     console.error(e);
-    res.status(503).json();
+    res.status(500).json();
   }
 
 }

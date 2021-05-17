@@ -5,8 +5,12 @@ module.exports = {
   refreshSecret: process.env.REFRESHSECRET || 'refreshholder',
   tokenLife: process.env.TOKENLIFE || 300,
   refreshLife: process.env.REFRESHLIFE || 86400,
-  permissionLevel: {
+  permission: {
     NORMAL_USER: 1,
     ADMIN: 2047
+  },
+  permissionLevel: {
+    NORMAL_USER: 1,
+    ADMIN: 1024,
   }
 }
