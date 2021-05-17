@@ -10,6 +10,7 @@ const flightSchema = new Schema({
   startFrom: String,
   destination: String,
   type: String,
+  price: Schema.Types.Mixed,
   seat: [{ seatType: String, amount: Number }],
   additional: Schema.Types.Mixed,
 });
