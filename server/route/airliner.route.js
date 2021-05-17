@@ -1,23 +1,25 @@
 const express = require('express');
-const controller = require('../controller/airport.controller');
-const config = require('../config/main.config');
+const controller = require('../controller/airliner.controller');
 const verifyAuth = require('../middleware/authorization/auth.validation.middleware');
+const config = require('../config/main.config');
 const router = express.Router();
 
-router.get('/', controller.listAirport);
+router.get('/', [verifyAuth.validJWTNeeded,
+verifyAuth.minimumPermissionLevelRequired(config.permissionLevel.ADMIN),
+controller.list]);
 
 router.post('/', [verifyAuth.validJWTNeeded,
 verifyAuth.minimumPermissionLevelRequired(config.permissionLevel.ADMIN),
-controller.createAirport]);
+controller.createAirliner]);
 
 router.get('/:id', controller.findById);
 
 router.patch('/:id', [verifyAuth.validJWTNeeded,
 verifyAuth.minimumPermissionLevelRequired(config.permissionLevel.ADMIN),
-controller.patchAirport]);
+controller.patchAirliner]);
 
 router.delete('/:id', [verifyAuth.validJWTNeeded,
 verifyAuth.minimumPermissionLevelRequired(config.permissionLevel.ADMIN),
-controller.deleteAirport]);
+controller.deleteAirliner]);
 
 module.exports = router;
