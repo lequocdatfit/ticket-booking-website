@@ -1,7 +1,11 @@
 import { combineReducers } from "redux";
 import { authReducer } from "./authReducer";
-import { reducer as formReducer } from 'redux-form'
+import selectedFlight from './SelectedFlightReducer';
+import flightReducer from "./flightReducer";
+import { reducer as formReducer } from 'redux-form';
 
 export default combineReducers({
-  form: formReducer
+  form: formReducer,
+  flights: flightReducer,
+  selectedFlight: selectedFlight,
 });
