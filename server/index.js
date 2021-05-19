@@ -5,6 +5,8 @@ const authenticationRouter = require('./route/authentication.route');
 const userRouter = require('./route/user.route');
 const airportRouter = require('./route/airport.route');
 const airlinerRouter = require('./route/airliner.route');
+const flightRouter = require('./route/flight.route');
+const ticketRouter = require('./route/ticket.route');
 
 const { port, mongoUrl } = key;
 
@@ -26,6 +28,10 @@ app.use('/user', userRouter);
 app.use('/airport', airportRouter);
 
 app.use('/airliner', airlinerRouter);
+
+app.use('/flight', flightRouter);
+
+app.use('/ticket', ticketRouter);
 
 app.use(function (req, res) {
   res.status(404).json({ errors: ["Not found"] });
