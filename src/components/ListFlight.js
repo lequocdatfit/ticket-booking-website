@@ -13,6 +13,7 @@ function ListFlight(props) {
   console.log(flights);
 
   const onSelectFlight = (flight, value) => {
+    flight.totalPrice = flight.price.value + flight.price.tax;
     props.selectFlight(flight);
     console.log(value)
   }

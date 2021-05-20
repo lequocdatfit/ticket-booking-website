@@ -4,6 +4,7 @@ import NavBar from './components/Navbar';
 import Home from './components/pages/Home';
 import history from './history';
 import SelectFlight from './components/SelectFlight';
+import Passengers from './components/Passengers';
 import './App.css';
 
 
@@ -13,6 +14,7 @@ function App() {
       <NavBar />
       <Route path="/" exact component={Home} />
       <Route path="/select-flight" component={SelectFlight} />
+      <Route path="/passengers" exact component={Passengers} />
     </Router>
   )
 }

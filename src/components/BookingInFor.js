@@ -53,7 +53,10 @@ function BookingInFor(props) {
         </div>
       </div>
       <div class="extra content">
-        <div class="header">Tổng tiền: </div>
+        <div class="header">
+          Tổng tiền: {props.selectedFlight? <span className="ui header red">{props.selectedFlight.totalPrice} VNĐ</span> : null} 
+          
+        </div>
       </div>
     </div>
   )

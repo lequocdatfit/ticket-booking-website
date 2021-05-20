@@ -13,6 +13,7 @@
     "date-fns": "^2.21.3",
     "lodash": "^4.17.21",
     "react": "^16.4.2",
+    "react-datepicker": "^3.8.0",
     "react-dom": "^16.4.2",
     "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
@@ -20,6 +21,7 @@
     "redux": "^4.1.0",
     "redux-form": "^8.3.7",
     "redux-thunk": "^2.3.0",
+    "semantic-ui-react": "^2.0.3",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
