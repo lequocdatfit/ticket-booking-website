@@ -3,7 +3,7 @@ const nanoid = require('nanoid');
 const Schema = mongoose.Schema;
 
 const flightSchema = new Schema({
-  flightId: { type: String, require: true, default: nanoid.nanoid(6).toUpperCase() },
+  flightId: { type: String, require: true, default: () => nanoid.nanoid(6).toUpperCase() },
   airliner: { type: Schema.Types.ObjectId, ref: 'Airliners' },
   takeOffTime: Date,
   landingTime: Date,
@@ -22,10 +22,10 @@ module.exports = {
     return flightModel.create(flight);
   },
   find: (query) => {
-    return flightModel.find(query).populate();
+    return flightModel.find(query).populate().populate('airliner').populate('startFrom').populate('destination');
   },
   findById: (_id) => {
-    return flightModel.findById(_id).populate();
+    return flightModel.findById(_id).populate('airliner').populate('startFrom').populate('destination');
   },
   update: async (_id, data) => {
     let flight = await flightModel.findOne({ _id: _id });
@@ -36,8 +36,8 @@ module.exports = {
     return flightModel.findByIdAndDelete(_id);
   },
   list: (perPage, page) => {
-    return flightModel.find()
+    return flightModel.find().populate('airliner').populate('startFrom').populate('destination')
       .limit(perPage)
-      .skip(perPage * page).lean();
+      .skip(perPage * page);
   }
 }

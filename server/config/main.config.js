@@ -12,5 +12,6 @@ module.exports = {
   permissionLevel: {
     NORMAL_USER: 1,
     ADMIN: 1024,
-  }
+  },
+  corsOrigin: 'http://localhost:3000'
 }

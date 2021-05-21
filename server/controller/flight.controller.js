@@ -10,6 +10,9 @@ module.exports.createFlight = async (req, res) => {
     if (req.body.hasOwnProperty('additional')) {
       req.body.additional = JSON.parse(req.body.additional);
     }
+    if (req.body.hasOwnProperty('price')) {
+      req.body.price = JSON.parse(req.body.price);
+    }
     if (req.body.hasOwnProperty('airliner')) {
       let airliner = await airlinerModel.findById(req.body.airliner);
       if (!airliner)
@@ -63,7 +66,7 @@ module.exports.list = (req, res) => {
   });
 }
 
-module.exports.patchFlight = (req, res) => {
+module.exports.patchFlight = async (req, res) => {
   try {
     if (req.body.hasOwnProperty('seat')) {
       req.body.seat = JSON.parse(req.body.seat);

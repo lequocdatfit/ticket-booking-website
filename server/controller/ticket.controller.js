@@ -32,7 +32,7 @@ module.exports.findById = (req, res) => {
   });
 }
 
-module.exports.patchTicket = (req, res) => {
+module.exports.patchTicket = async (req, res) => {
   try {
     if (req.body.hasOwnProperty('additional')) {
       req.body.additional = JSON.parse(req.body.additional);
