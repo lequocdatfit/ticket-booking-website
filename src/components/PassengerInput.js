@@ -5,6 +5,7 @@ import { Form, Dropdown } from 'semantic-ui-react';
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
+import './PassengerInput.css';
 
 const countryOptions = [
   { key: 'af', value: 'af', flag: 'af', text: 'Afghanistan' },
@@ -34,9 +35,10 @@ const countryOptions = [
 ]
 
 
-const renderTextField = ({ input, placeholder }) => {
+const renderTextField = ({ input, placeholder, label }) => {
   return (
     <Form.Field>
+      <label>{label}</label>
       <input type="text"
         {...input}
         placeholder={placeholder} />
@@ -44,14 +46,15 @@ const renderTextField = ({ input, placeholder }) => {
   )
 }
 
-const renderSelectField = ({ input, label }) => {
+const renderSelectField = ({ input, label, placeholder }) => {
   return (
     <Form.Field>
+      <label>{label}</label>
       <Dropdown
         selection
         value={input.value}
         onChange={(param, data) => input.onChange(data.value)}
-        placeholder={label}
+        placeholder={placeholder}
         fluid
         search
         options={countryOptions}
@@ -60,11 +63,15 @@ const renderSelectField = ({ input, label }) => {
   )
 }
 
-const renderDatePicker = ({ input }) => {
+const renderDatePicker = ({ input, label }) => {
   console.log(input);
   return (
-    <Form.Field>
-      <DatePicker selected={input.value} onChange={input.onChange} />
+    <Form.Field className="customDatePickerWidth">
+      <label>{label}</label>
+      <DatePicker 
+        selected={input.value} 
+        onChange={input.onChange}
+        placeholderText="Ngày sinh" />
     </Form.Field>
   )
 }
@@ -80,18 +87,17 @@ function PassengerInput() {
         <Field name="lastName" placeholder="Tên đệm & tên" component={renderTextField} />
       </Form.Group>
       <Form.Group widths="equal">
-        <Field name="birthDay" label="Birth Day" component={renderDatePicker} />
-        <Field name="country" label="Quốc gia" component={renderSelectField} />
-      </Form.Group>
-      <label>Địa chỉ</label>
-      <Form.Group widths="equal">
-        <Field name="address" placeholder="Địa chỉ" component={renderTextField} />
+        <Field name="birthDay" label="Ngày sinh" placeholder="Ngày sinh" component={renderDatePicker} />
+        <Field name="country" label="Quốc gia" placeholder="Chọn quốc gia" component={renderSelectField} />
       </Form.Group>
       <Form.Group widths="equal">
-        <Field name="email" placeholder="Địa chỉ emal" component={renderTextField} />
+        <Field name="address" label="Địa chỉ" placeholder="Địa chỉ" component={renderTextField} />
+      </Form.Group>
+      <Form.Group widths="equal">
+        <Field name="email" label="Email" placeholder="Địa chỉ emal" component={renderTextField} />
       </Form.Group>
       <Form.Group>
-        <Field name="phone" placeholder="Số điện thoại" component={renderTextField} />
+        <Field name="phone" label="Số điện thoại" placeholder="Số điện thoại" component={renderTextField} />
       </Form.Group>
     </Form>
   )
@@ -105,6 +111,7 @@ const mapStateToProps = (state) => {
 
 const wrapper = reduxForm({
   form: 'passenger',
+  destroyOnUnmount: false,
 })(PassengerInput);
 
 export default connect(null)(wrapper);

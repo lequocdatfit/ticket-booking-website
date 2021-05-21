@@ -13,15 +13,16 @@ function Passengers(props) {
       <div className="ui container grid" style={{ marginTop: 20 }}>
         <div className="ten wide column">
           <PassengerInput />
+          <div className="div" style={{ textAlign: 'center' }}>
+            <Link to="/select-service" className="ui button primary">
+              Tiếp tục
+            </Link>
+          </div>
         </div>
         <div className="six wide column">
           <BookingInFor />
         </div>
-        <div className="div" style={{ textAlign: 'center' }}>
-          <Link to="/" className="ui button primary">
-            Tiếp tục
-          </Link>
-        </div>
+
       </div>
     )
   }
@@ -46,7 +47,7 @@ function Passengers(props) {
           <i style={{ color: '#fff', fontSize: '32px' }} className="fas fa-user-circle"></i>
         </div>
       </div>
-        {renderPassengers()}
+      {renderPassengers()}
     </div>
   )
 }
