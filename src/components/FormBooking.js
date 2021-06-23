@@ -16,6 +16,8 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
+import { searchFlights } from '../actions';
+import history from '../history';
 
 
 const startFrom = [
@@ -30,12 +32,10 @@ const destinations = [
   { title: 'Kiên Giang', value: 'KienGiang'}
 ]
 
-const onSubmit = (formValues) => {
-  console.log("Submit");
-  console.log(formValues);
-}
-
 function FormBooking(props) {
+  const onSubmit = (formValues) => {
+    history.push('/select-flight');
+  }
   return (
     <div>
       <form onSubmit={props.handleSubmit(onSubmit)}>
@@ -64,7 +64,7 @@ function FormBooking(props) {
         <div style={{ textAlign: 'center'}}>
           <Button type="submit" size="large" style={{ marginTop: 25 }} variant="contained" color="secondary">
             Tìm chuyến bay
-            <i class="fas fa-plane-departure" style={{marginLeft: 6}}></i>
+            <i className="fas fa-plane-departure" style={{marginLeft: 6}}></i>
           </Button>
         </div>
       </form>
@@ -173,7 +173,8 @@ const mapStateToProps = state => {
 
 const formWrapped = reduxForm({
   form: 'FormBooking',
-  validate: validate
+  validate: validate,
+  destroyOnUnmount: false
 })(FormBooking);
 
-export default connect(mapStateToProps)(formWrapped);
+export default connect(mapStateToProps, { searchFlights })(formWrapped);
