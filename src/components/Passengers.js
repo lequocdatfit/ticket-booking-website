@@ -1,40 +1,32 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 import BookingInFor from './BookingInFor';
+import { connect } from 'react-redux';
 import { formValueSelector } from 'redux-form';
 import { Link } from 'react-router-dom';
-import { searchFlights } from '../actions';
-import ListFlight from './ListFlight';
-import './SelectFlight.css'
 
-function SelectFlight(props) {
-  useEffect(() => {
-    props.searchFlights();
-  }, []);
+import PassengerInput from './PassengerInput';
 
-  const renderFlights = () => {
-    if (!props.flights) {
-      return <div>Loading...</div>
-    } else {
-      return (
-        <div className="ui container grid" style={{ marginTop: 20 }}>
-          <div className="ten wide column">
-            <ListFlight flights={props.flights} />
-            <div className="div" style={{ textAlign: 'center' }}>
-              <Link to="/passengers" className="ui button primary">
-                Tiếp tục
-              </Link>
+function Passengers(props) {
 
-            </div>
+  const renderPassengers = () => {
+    return (
+      <div className="ui container grid" style={{ marginTop: 20 }}>
+        <div className="ten wide column">
+          <PassengerInput />
+          <div className="div" style={{ textAlign: 'center' }}>
+            <Link to="/select-service" className="ui button primary">
+              Tiếp tục
+            </Link>
           </div>
-          <div className="six wide column">
-            <BookingInFor />
-          </div>
-
         </div>
-      )
-    }
+        <div className="six wide column">
+          <BookingInFor />
+        </div>
+
+      </div>
+    )
   }
+
   return (
     <div>
       <div className="ui container wrapper">
@@ -55,20 +47,19 @@ function SelectFlight(props) {
           <i style={{ color: '#fff', fontSize: '32px' }} className="fas fa-user-circle"></i>
         </div>
       </div>
-      {renderFlights()}
-
+      {renderPassengers()}
     </div>
   )
 }
 
 const selector = formValueSelector('FormBooking');
+
 const mapStateToProps = (state) => {
   return {
     startFrom: selector(state, 'startFrom'),
     destination: selector(state, 'destination'),
     type: selector(state, 'type'),
-    flights: Object.values(state.flights)
   }
 }
 
-export default connect(mapStateToProps, { searchFlights })(SelectFlight);
+export default connect(mapStateToProps)(Passengers);
