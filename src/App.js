@@ -17,6 +17,7 @@ function App() {
       <Route path="/select-flight" exact component={SelectFlight} />
       <Route path="/passengers" exact component={Passengers} />
       <Route path="/select-service" exac component={SelectService} />
+      
     </Router>
   )
 }

@@ -4,6 +4,7 @@ import BookingInFor from './BookingInFor';
 import ListService from './ListService';
 import { connect } from 'react-redux';
 import { formValueSelector } from 'redux-form';
+import Modal from './Modal';
 
 
 function SelectService(props) {
@@ -21,7 +22,6 @@ function SelectService(props) {
         <div className="six wide column">
           <BookingInFor />
         </div>
-
       </div>
     )
   }
@@ -47,6 +47,7 @@ function SelectService(props) {
         </div>
       </div>
       {renderServices()}
+
     </div>
   )
 }

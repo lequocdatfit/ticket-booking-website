@@ -1,4 +1,4 @@
-import { SEARCH_FLIGHTS, SELECT_FLIGHT } from "./types";
+import { SEARCH_FLIGHTS, SELECT_FLIGHT, SELECT_SEAT, REMOVE_SEAT } from "./types";
 import Flight from "../api/Flight";
 import history from '../history';
 
@@ -20,3 +20,17 @@ export const selectFlight = (flight) => {
     payload: flight,
   }
 };
+
+export const selectSeat = (seat) => {
+  return {
+    type: SELECT_SEAT,
+    payload: seat
+  }
+}
+
+export const removeSeat = (seat) => {
+  return {
+    type: REMOVE_SEAT,
+    payload: seat
+  }
+}

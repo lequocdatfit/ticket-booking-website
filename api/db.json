@@ -2,7 +2,200 @@
   "flights": [
     {
       "flightId": "001",
-      "airliner": "MAYBAY01",
+      "airliner": {
+        "_id": {
+          "$oid": "60a28b93632bf62938581d60"
+        },
+        "model": "747",
+        "manufacturer": "BOEING",
+        "dateOfCommissioning": {
+          "$date": "2018-05-11T00:00:00Z"
+        },
+        "seatLayout": "3-3",
+        "passengerCapacity": [
+          {
+            "_id": {
+              "$oid": "60a28b93632bf62938581d61"
+            },
+            "seatType": "Eco",
+            "amount": 100
+          },
+          {
+            "_id": {
+              "$oid": "60a28b93632bf62938581d62"
+            },
+            "seatType": "Deluxe",
+            "amount": 20
+          },
+          {
+            "_id": {
+              "$oid": "60a75ed694474ceb87967747"
+            },
+            "seatType": "SkyBoss",
+            "amount": 10
+          }
+        ],
+        "cabinFuselage": [
+          {
+            "index": 1,
+            "type": "SkyBOSS",
+            "rows": [
+              {
+                "rowIndex": 1,
+                "seats" : [
+                  { "id" : "1A", "occupied": true},
+                  { "id" : "1B"},
+                  { "id" : "1C"},
+                  { "id" : "1D"},
+                  { "id" : "1E" , "occupied": true},
+                  { "id" : "1F"}
+                ]
+              },
+              {
+                "rowIndex": 2,
+                "seats" : [
+                  { "id" : "2A"},
+                  { "id" : "2B"},
+                  { "id" : "2C"},
+                  { "id" : "2D", "occupied": true},
+                  { "id" : "2E"},
+                  { "id" : "2F"}
+                ]
+              },
+              {
+                "rowIndex": 3,
+                "seats" : [
+                  { "id" : "3A", "occupied": true},
+                  { "id" : "3B"},
+                  { "id" : "3C"},
+                  { "id" : "3D"},
+                  { "id" : "3E"},
+                  { "id" : "3F"}
+                ]
+              },
+              {
+                "rowIndex": 4,
+                "seats" : [
+                  { "id" : "4A"},
+                  { "id" : "4B"},
+                  { "id" : "4C"},
+                  { "id" : "4D"},
+                  { "id" : "4E"},
+                  { "id" : "4F"}
+                ]
+              }
+            ],
+            "columns": 4
+          },
+          {
+            "index": 2,
+            "type": "Deluxe",
+            "rows": [
+              {
+                "rowIndex": 1,
+                "seats" : [
+                  { "id" : "5A"},
+                  { "id" : "5B"},
+                  { "id" : "5C"},
+                  { "id" : "5D"},
+                  { "id" : "5E"},
+                  { "id" : "5F"}
+                ]
+              },
+              {
+                "rowIndex": 2,
+                "seats" : [
+                  { "id" : "6A"},
+                  { "id" : "6B"},
+                  { "id" : "6C"},
+                  { "id" : "6D"},
+                  { "id" : "6E"},
+                  { "id" : "6F"}
+                ]
+              },
+              {
+                "rowIndex": 3,
+                "seats" : [
+                  { "id" : "7A"},
+                  { "id" : "7B"},
+                  { "id" : "7C"},
+                  { "id" : "7D"},
+                  { "id" : "7E"},
+                  { "id" : "7F"}
+                ]
+              },
+              {
+                "rowIndex": 4,
+                "seats" : [
+                  { "id" : "8A"},
+                  { "id" : "8B"},
+                  { "id" : "8C"},
+                  { "id" : "8D"},
+                  { "id" : "8E"},
+                  { "id" : "8F"}
+                ]
+              }
+            ],
+            "columns": 4
+          },
+          {
+            "index": 3,
+            "type": "Eco",
+            "rows": [
+              {
+                "rowIndex": 1,
+                "seats" : [
+                  { "id" : "9A"},
+                  { "id" : "9B"},
+                  { "id" : "9C"},
+                  { "id" : "9D"},
+                  { "id" : "9E"},
+                  { "id" : "9F"}
+                ]
+              },
+              {
+                "rowIndex": 2,
+                "seats" : [
+                  { "id" : "10A"},
+                  { "id" : "10B"},
+                  { "id" : "10C"},
+                  { "id" : "10D"},
+                  { "id" : "10E"},
+                  { "id" : "10F"}
+                ]
+              },
+              {
+                "rowIndex": 3,
+                "seats" : [
+                  { "id" : "11A"},
+                  { "id" : "11B"},
+                  { "id" : "11C"},
+                  { "id" : "11D"},
+                  { "id" : "11E"},
+                  { "id" : "11F"}
+                ]
+              },
+              {
+                "rowIndex": 4,
+                "seats" : [
+                  { "id" : "12A"},
+                  { "id" : "12B"},
+                  { "id" : "12C"},
+                  { "id" : "12D"},
+                  { "id" : "12E"},
+                  { "id" : "12F"}
+                ]
+              }
+            ],
+            "columns": 4
+          }
+        ],
+        "__v": 1,
+        "additional": {
+          "color": "blue",
+          "size": "big"
+        }
+      },
       "price": {
         "eco": { "value": 200000, "tax": 350000, "available": 5},
         "deluxe": { "value": 400000, "tax": 350000, "available": 6},
@@ -18,7 +211,42 @@
     },
     {
       "flightId": "002",
-      "airliner": "MAYBAY02",
+      "airliner": {
+        "_id": {
+          "$oid": "60a75fe14199ba6da86eb5d5"
+        },
+        "model": "787-10",
+        "manufacturer": "Boing",
+        "dateOfCommissioning": {
+          "$date": "2020-01-11T00:00:00Z"
+        },
+        "seatLayout": "3-3",
+        "passengerCapacity": [
+          {
+            "_id": {
+              "$oid": "60a75fe14199ba6da86eb5d6"
+            },
+            "seatType": "Eco",
+            "amount": 100
+          },
+          {
+            "_id": {
+              "$oid": "60a75fe14199ba6da86eb5d7"
+            },
+            "seatType": "Deluxe",
+            "amount": 20
+          },
+          {
+            "_id": {
+              "$oid": "60a75fe14199ba6da86eb5d8"
+            },
+            "seatType": "SkyBOSS",
+            "amount": 10
+          }
+        ],
+        "seatPitch": [],
+        "__v": 0
+      },
       "price": {
         "eco": { "value": 400000, "tax": 350000, "available": 20},
         "deluxe": { "value": 700000, "tax": 350000, "available": 3},
