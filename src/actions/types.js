@@ -1,0 +1,5 @@
+export const FETCH_FLIGHTS = 'FETCH_FLIGHTS';
+export const SEARCH_FLIGHTS = 'SEARCH_FLIGHTS';
+export const SELECT_FLIGHT = 'SELECT_FLIGHT';
+export const SELECT_SEAT = 'SELECT_SEAT';
+export const REMOVE_SEAT = 'REMOVE_SEAT';
