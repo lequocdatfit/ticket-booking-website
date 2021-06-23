@@ -24,8 +24,10 @@ module.exports = {
   findById: (_id) => {
     return airlineModel.findById(_id);
   },
-  update: (_id) => {
-    return airlineModel.findByIdAndUpdate(_id);
+  update: async (_id, data) => {
+    let airliner = await airlineModel.findOne({ _id: _id });
+    Object.assign(airliner, data);
+    return airliner.save();
   },
   delete: (_id) => {
     return airlineModel.findByIdAndDelete(_id);

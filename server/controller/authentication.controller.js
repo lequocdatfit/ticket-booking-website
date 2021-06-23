@@ -1,29 +1,13 @@
-const validation = require('../helper/verify.helper');
+
 const userModel = require('../model/users.model');
 const crypto = require('crypto');
 const config = require('../config/main.config');
 const jwtHelper = require('../helper/jwt.helper');
+const userController = require('./user.controller');
 
-module.exports.userRegistaion = async (req, res) => {
-  if (!validation.emailValidation(req.body.email)) {
-    res.status(400).json({ error: 'invalid email' });
-    return;
-  }
-  if (await userModel.isEmailExisted(req.body.email)) {
-    res.status(400).json({ error: 'email is already exist' });
-    return;
-  }
-  let salt = crypto.randomBytes(16).toString('base64');
-  let hash = crypto.createHmac('sha512', salt)
-    .update(req.body.password)
-    .digest("base64");
-  req.body.hashedPassword = salt + "$" + hash;
+module.exports.addNormalUser = async (req, res, next) => {
   req.body.permissionLevel = 1;
-  let user = await userModel.createUser(req.body);
-  user = user.toJSON();
-  delete user.hashedPassword;
-  delete user._id;
-  res.status(201).json(user);
+  next();
 }
 
 module.exports.logIn = (req, res) => {

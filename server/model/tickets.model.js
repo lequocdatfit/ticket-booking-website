@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ticketSchema = new Schema({
-  fightId: { type: mongoose.Types.ObjectId, ref: 'Flights' },
+  flightId: { type: mongoose.Types.ObjectId, ref: 'Flights' },
   passenger: String,
   passenderId: String,
   phoneNumber: String,
@@ -18,5 +18,26 @@ const ticketSchema = new Schema({
 const ticketModel = mongoose.model('Tickets', ticketSchema, 'Tickets');
 
 module.exports = {
-
+  create: (ticket) => {
+    return ticketModel.create(ticket);
+  },
+  find: (query) => {
+    return ticketModel.find(query);
+  },
+  findById: (_id) => {
+    return ticketModel.findById(_id);
+  },
+  update: async (_id, data) => {
+    let ticket = await ticketModel.findOne({ _id: _id });
+    Object.assign(ticket, data);
+    return ticket.save();
+  },
+  delete: (_id) => {
+    return ticketModel.findByIdAndDelete(_id);
+  },
+  list: (perPage, page) => {
+    return ticketModel.find()
+      .limit(perPage)
+      .skip(perPage * page).lean();
+  }
 }

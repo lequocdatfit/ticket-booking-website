@@ -52,10 +52,21 @@ module.exports = {
   findByEmail: (email) => {
     return UserModel.findOne({ email });
   },
-  update: (_id) => {
-    return UserModel.findByIdAndUpdate(_id);
+  patchUser: async (id, userData) => {
+    let user = await UserModel.findOne({ _id: id });
+    Object.assign(user, userData);
+    return user.save();
+    // return UserModel.findOneAndUpdate({
+    //   _id: id
+    // }, userData);
   },
   delete: (_id) => {
     return UserModel.findByIdAndDelete(_id);
+  },
+  list: (perPage, page) => {
+    return UserModel.find()
+      .limit(perPage)
+      .skip(perPage * page).lean();
   }
+
 }
