@@ -116,29 +116,71 @@ module.exports.listFlightInDate = (req, res) => {
   }
   let listAll = req.query.listall ? (req.query.listall.toLowerCase() === 'true') : false;
   var date = new Date(req.query.date);
+  date.setHours(0, 0, 0, 0);
+  var tomorrow = new Date(date);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  var current = new Date();
   let queryAggregate = [
     {
       $match: {
         startFrom: req.query.start,
         destination: req.query.destination,
+        takeOffTime: { $gt: current, $gt: date, $lte: tomorrow },
       }
     },
     {
       $lookup: {
-        from: 'Tickets',
-        localField: '_id',
-        foreignField: 'flightId',
-        as: 'tickets'
+        from: "Tickets",
+        localField: "_id",
+        foreignField: "flightId",
+        as: "tickets"
       }
     },
     {
-      $match: {
-        $or: [{
-          tickets: {
-            status: true
+      $addFields: {
+        totalEco: {
+          $size: {
+            $filter: {
+              input: "$tickets",
+              as: "tickets",
+              cond: {
+                $eq: ["$$this.status", true],
+                $eq: ["$$this.type", "Eco"],
+              }
+            }
           }
-        }]
+        },
+        totalDeluxe: {
+          $size: {
+            $filter: {
+              input: "$tickets",
+              as: "tickets",
+              cond: {
+                $eq: ["$$this.status", true],
+                $eq: ["$$this.type", "Deluxe"],
+              }
+            }
+          }
+        },
+        totalSB: {
+          $size: {
+            $filter: {
+              input: "$tickets",
+              as: "tickets",
+              cond: {
+                $eq: ["$$this.status", true],
+                $eq: ["$$this.type", "SkyBOSS"],
+              }
+            }
+          }
+        }
       }
-    }
+    },
   ];
+  flightModel.aggregate(queryAggregate).then(result => {
+    res.status(200).json(result);
+  }).catch((e) => {
+    console.error(e);
+    res.status(500).json({ errors: e });
+  });
 }
