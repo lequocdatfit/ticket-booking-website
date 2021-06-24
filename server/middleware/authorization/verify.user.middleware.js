@@ -17,6 +17,7 @@ module.exports.isPasswordAndUserMatch = (req, res, next) => {
             permissionLevel: user.permissionLevel,
             fullName: user.fullName,
           };
+          req.user = user;
           return next();
         } else {
           return res.status(400).json({ errors: ['Invalid email or password'] });

@@ -39,5 +39,8 @@ module.exports = {
     return flightModel.find().populate('airliner').populate('startFrom').populate('destination')
       .limit(perPage)
       .skip(perPage * page);
+  },
+  aggregate: (agg) => {
+    return flightModel.aggregate(agg);
   }
 }
