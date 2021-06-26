@@ -14,7 +14,7 @@ module.exports.logIn = (req, res) => {
   try {
     let token = jwtHelper.generateToken(req.body, config.jwtSecret, config.tokenLife);
     let refresh_token = jwtHelper.generateToken(req.body, config.refreshSecret, config.refreshLife);
-    res.status(201).send({ user: req.user, accessToken: token, refreshToken: refresh_token });
+    res.status(201).send({ accessToken: token, refreshToken: refresh_token });
   } catch (err) {
     res.status(500).send({ errors: err });
   }

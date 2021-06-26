@@ -2,7 +2,11 @@ import React from 'react';
 import { useState } from 'react';
 import { connect } from 'react-redux';
 import { signIn } from '../../action';
+import { Redirect } from 'react-router-dom';
+import history from '../../history';
+
 import axios from 'axios';
+import './Login.css';
 
 function Login(props) {
 
@@ -11,22 +15,19 @@ function Login(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("/login", { email, password });
-      this.props.signIn(res.data);
+      const res = await axios.post("authentication/login", { email, password });
+      props.signIn(res.data);
+      history.push('/');
     } catch (err) {
       console.log(err);
     }
   };
 
-
+  if(props.isSignedIn) {
+    return <Redirect to="/" />
+  }
   return (
       <div className="container">
-      {props.isSignedIn ? (
-        <div>
-          Đã đăng nhập
-        </div>  
-      
-      ) : (
         <div className="login">
           <form onSubmit={handleSubmit}>
             <span className="formTitle">Login</span>
@@ -45,7 +46,6 @@ function Login(props) {
             </button>
           </form>
         </div>
-      )}
     </div>
   )
 }
