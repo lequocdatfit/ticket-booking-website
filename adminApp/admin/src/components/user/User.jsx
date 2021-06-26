@@ -10,53 +10,30 @@ import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
 import { useEffect, useState } from "react";
 import { fetchAdmin, editAdmin } from "../../action";
-import Notification from "../notification/Notification";
 import "./user.css";
+import UserForm from "../UserForm/UserForm";
 
 function User(props) {
-  const [fullName, setFullName] = useState(props.admin.fullName);
-  const [email, setEmail] =useState(props.admin.email);
-  const [phoneNumber, setPhoneNumber] = useState(props.admin.phoneNumber);
-  const [notify, setNotify] = useState({ isOpen: false, message: '', type: ''});
   useEffect(() => {
-    props.fetchAdmin(props.match.params.id)
-  }, [])
+    props.fetchAdmin(props.match.params.id);
+  }, []);
 
-  const handleSubmit = (event) => {
-    props.editAdmin(props.admin._id, {fullName, email, phoneNumber});
-    props.fetchAdmin(props.match.params.id)
-    setNotify({ isOpen: true, message: 'Update infomation success!', type: 'success'});
-    event.preventDefault();
-  }
-
-  const handleInputChange = (event) => {
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
-    switch(name) {
-      case "fullName":
-        setFullName(value);
-        break;
-      case "email":
-        setEmail(value);
-        break;
-      case "phoneNumber":
-        setPhoneNumber(value);
-        break;
-      default:
-        break;
-    }
+  const handleSubmit = (formValues) => {
+    props.editAdmin(props.admin._id, formValues);
+    props.fetchAdmin(props.match.params.id);
   }
 
   if(!props.admin) {
+    
     return <div className="others">Loading...</div>
-  }
+  } 
+
   return (
     <>
     <div className="user">
       <div className="userTitleContainer">
         <h1 className="userTitle">Edit User</h1>
-        <Link to="/newUser">
+        <Link to="/admins/newAdmin">
           <button className="userAddButton">Create</button>
         </Link>
       </div>
@@ -96,49 +73,13 @@ function User(props) {
         </div>
         <div className="userUpdate">
           <span className="userUpdateTitle">Edit</span>
-          <form onSubmit={handleSubmit} className="userUpdateForm">
-            <div className="userUpdateLeft">
-              <div className="userUpdateItem">
-                <label>Full Name</label>
-                <input
-                  name="fullName"
-                  type="text"
-                  value={fullName}
-                  onChange={handleInputChange}
-                  className="userUpdateInput"
-                />
-              </div>
-              <div className="userUpdateItem">
-                <label>Email</label>
-                <input
-                  name="email"
-                  type="text"
-                  value={email}
-                  onChange={handleInputChange}
-                  className="userUpdateInput"
-                />
-              </div>
-              <div className="userUpdateItem">
-                <label>Phone</label>
-                <input
-                  name="phoneNumber"
-                  type="text"
-                  value={phoneNumber}
-                  onChange={handleInputChange}
-                  className="userUpdateInput"
-                />
-              </div>
-              <button type="submit" className="userUpdateButton">Update</button>
-            </div>
-              
-          </form>
+          <UserForm 
+            handleSubmit={handleSubmit}
+            admin={props.admin} />
         </div>
       </div>
     </div>
-    <Notification 
-      notify={notify}
-      setNotify={setNotify} 
-    />
+    
     </>
   );
 }

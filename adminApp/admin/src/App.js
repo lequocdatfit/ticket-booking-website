@@ -9,6 +9,7 @@ import './App.css';
 import store from './myStore';
 import UserList from './components/userList/UserList';
 import User from './components/user/User';
+import NewUser from './components/newUser/NewUser';
 
 const PrivateRoute = ({ component: Component, ...rest }) => 
 (  
@@ -28,6 +29,7 @@ function App() {
           <div className="container">
             <SideBar />
             <Switch>
+              <PrivateRoute path="/admins/newAdmin" exact component={NewUser} />
               <PrivateRoute path="/" exact component={Home} />
               <PrivateRoute path="/admins" exact component={UserList} />
               <PrivateRoute path="/admins/:id" exact component={User} />
