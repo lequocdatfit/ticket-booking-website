@@ -35,171 +35,172 @@
             "amount": 10
           }
         ],
-        "cabinFuselage": [
-          {
-            "index": 1,
-            "type": "SkyBOSS",
-            "rows": [
-              {
-                "rowIndex": 1,
-                "seats" : [
-                  { "id" : "1A", "occupied": true},
-                  { "id" : "1B"},
-                  { "id" : "1C"},
-                  { "id" : "1D"},
-                  { "id" : "1E" , "occupied": true},
-                  { "id" : "1F"}
-                ]
-              },
-              {
-                "rowIndex": 2,
-                "seats" : [
-                  { "id" : "2A"},
-                  { "id" : "2B"},
-                  { "id" : "2C"},
-                  { "id" : "2D", "occupied": true},
-                  { "id" : "2E"},
-                  { "id" : "2F"}
-                ]
-              },
-              {
-                "rowIndex": 3,
-                "seats" : [
-                  { "id" : "3A", "occupied": true},
-                  { "id" : "3B"},
-                  { "id" : "3C"},
-                  { "id" : "3D"},
-                  { "id" : "3E"},
-                  { "id" : "3F"}
-                ]
-              },
-              {
-                "rowIndex": 4,
-                "seats" : [
-                  { "id" : "4A"},
-                  { "id" : "4B"},
-                  { "id" : "4C"},
-                  { "id" : "4D"},
-                  { "id" : "4E"},
-                  { "id" : "4F"}
-                ]
-              }
-            ],
-            "columns": 4
-          },
-          {
-            "index": 2,
-            "type": "Deluxe",
-            "rows": [
-              {
-                "rowIndex": 1,
-                "seats" : [
-                  { "id" : "5A"},
-                  { "id" : "5B"},
-                  { "id" : "5C"},
-                  { "id" : "5D"},
-                  { "id" : "5E"},
-                  { "id" : "5F"}
-                ]
-              },
-              {
-                "rowIndex": 2,
-                "seats" : [
-                  { "id" : "6A"},
-                  { "id" : "6B"},
-                  { "id" : "6C"},
-                  { "id" : "6D"},
-                  { "id" : "6E"},
-                  { "id" : "6F"}
-                ]
-              },
-              {
-                "rowIndex": 3,
-                "seats" : [
-                  { "id" : "7A"},
-                  { "id" : "7B"},
-                  { "id" : "7C"},
-                  { "id" : "7D"},
-                  { "id" : "7E"},
-                  { "id" : "7F"}
-                ]
-              },
-              {
-                "rowIndex": 4,
-                "seats" : [
-                  { "id" : "8A"},
-                  { "id" : "8B"},
-                  { "id" : "8C"},
-                  { "id" : "8D"},
-                  { "id" : "8E"},
-                  { "id" : "8F"}
-                ]
-              }
-            ],
-            "columns": 4
-          },
-          {
-            "index": 3,
-            "type": "Eco",
-            "rows": [
-              {
-                "rowIndex": 1,
-                "seats" : [
-                  { "id" : "9A"},
-                  { "id" : "9B"},
-                  { "id" : "9C"},
-                  { "id" : "9D"},
-                  { "id" : "9E"},
-                  { "id" : "9F"}
-                ]
-              },
-              {
-                "rowIndex": 2,
-                "seats" : [
-                  { "id" : "10A"},
-                  { "id" : "10B"},
-                  { "id" : "10C"},
-                  { "id" : "10D"},
-                  { "id" : "10E"},
-                  { "id" : "10F"}
-                ]
-              },
-              {
-                "rowIndex": 3,
-                "seats" : [
-                  { "id" : "11A"},
-                  { "id" : "11B"},
-                  { "id" : "11C"},
-                  { "id" : "11D"},
-                  { "id" : "11E"},
-                  { "id" : "11F"}
-                ]
-              },
-              {
-                "rowIndex": 4,
-                "seats" : [
-                  { "id" : "12A"},
-                  { "id" : "12B"},
-                  { "id" : "12C"},
-                  { "id" : "12D"},
-                  { "id" : "12E"},
-                  { "id" : "12F"}
-                ]
-              }
-            ],
-            "columns": 4
-          }
-        ],
+
         "__v": 1,
         "additional": {
           "color": "blue",
           "size": "big"
         }
       },
+      "cabinFuselage": [
+        {
+          "index": 1,
+          "type": "SkyBOSS",
+          "rows": [
+            {
+              "rowIndex": 1,
+              "seats": [
+                { "id": "1A", "occupied": true },
+                { "id": "1B" },
+                { "id": "1C" },
+                { "id": "1D" },
+                { "id": "1E", "occupied": true },
+                { "id": "1F" }
+              ]
+            },
+            {
+              "rowIndex": 2,
+              "seats": [
+                { "id": "2A" },
+                { "id": "2B" },
+                { "id": "2C" },
+                { "id": "2D", "occupied": true },
+                { "id": "2E" },
+                { "id": "2F" }
+              ]
+            },
+            {
+              "rowIndex": 3,
+              "seats": [
+                { "id": "3A", "occupied": true },
+                { "id": "3B" },
+                { "id": "3C" },
+                { "id": "3D" },
+                { "id": "3E" },
+                { "id": "3F" }
+              ]
+            },
+            {
+              "rowIndex": 4,
+              "seats": [
+                { "id": "4A" },
+                { "id": "4B" },
+                { "id": "4C" },
+                { "id": "4D" },
+                { "id": "4E" },
+                { "id": "4F" }
+              ]
+            }
+          ],
+          "columns": 4
+        },
+        {
+          "index": 2,
+          "type": "Deluxe",
+          "rows": [
+            {
+              "rowIndex": 1,
+              "seats": [
+                { "id": "5A" },
+                { "id": "5B" },
+                { "id": "5C" },
+                { "id": "5D" },
+                { "id": "5E" },
+                { "id": "5F" }
+              ]
+            },
+            {
+              "rowIndex": 2,
+              "seats": [
+                { "id": "6A" },
+                { "id": "6B" },
+                { "id": "6C" },
+                { "id": "6D" },
+                { "id": "6E" },
+                { "id": "6F" }
+              ]
+            },
+            {
+              "rowIndex": 3,
+              "seats": [
+                { "id": "7A" },
+                { "id": "7B" },
+                { "id": "7C" },
+                { "id": "7D" },
+                { "id": "7E" },
+                { "id": "7F" }
+              ]
+            },
+            {
+              "rowIndex": 4,
+              "seats": [
+                { "id": "8A" },
+                { "id": "8B" },
+                { "id": "8C" },
+                { "id": "8D" },
+                { "id": "8E" },
+                { "id": "8F" }
+              ]
+            }
+          ],
+          "columns": 4
+        },
+        {
+          "index": 3,
+          "type": "Eco",
+          "rows": [
+            {
+              "rowIndex": 1,
+              "seats": [
+                { "id": "9A" },
+                { "id": "9B" },
+                { "id": "9C" },
+                { "id": "9D" },
+                { "id": "9E" },
+                { "id": "9F" }
+              ]
+            },
+            {
+              "rowIndex": 2,
+              "seats": [
+                { "id": "10A" },
+                { "id": "10B" },
+                { "id": "10C" },
+                { "id": "10D" },
+                { "id": "10E" },
+                { "id": "10F" }
+              ]
+            },
+            {
+              "rowIndex": 3,
+              "seats": [
+                { "id": "11A" },
+                { "id": "11B" },
+                { "id": "11C" },
+                { "id": "11D" },
+                { "id": "11E" },
+                { "id": "11F" }
+              ]
+            },
+            {
+              "rowIndex": 4,
+              "seats": [
+                { "id": "12A" },
+                { "id": "12B" },
+                { "id": "12C" },
+                { "id": "12D" },
+                { "id": "12E" },
+                { "id": "12F" }
+              ]
+            }
+          ],
+          "columns": 4
+        }
+      ],
       "price": {
-        "eco": { "value": 200000, "tax": 350000, "available": 5},
-        "deluxe": { "value": 400000, "tax": 350000, "available": 6},
-        "skyBOSS": { "value": 890000, "tax": 350000, "available": 12}
+        "eco": { "value": 200000, "tax": 350000, "available": 5 },
+        "deluxe": { "value": 400000, "tax": 350000, "available": 6 },
+        "skyBOSS": { "value": 890000, "tax": 350000, "available": 12 }
       },
       "takeOffTime": "2021-05-17",
       "landingTime": "2021-05-17",
@@ -248,9 +249,9 @@
         "__v": 0
       },
       "price": {
-        "eco": { "value": 400000, "tax": 350000, "available": 20},
-        "deluxe": { "value": 700000, "tax": 350000, "available": 3},
-        "skyBOSS": { "value": 1200000, "tax": 350000, "available": 4}
+        "eco": { "value": 400000, "tax": 350000, "available": 20 },
+        "deluxe": { "value": 700000, "tax": 350000, "available": 3 },
+        "skyBOSS": { "value": 1200000, "tax": 350000, "available": 4 }
       },
       "takeOffTime": "2021-05-17",
       "landingTime": "2021-05-18",
@@ -264,9 +265,9 @@
       "flightId": "003",
       "airliner": "MAYBAY013",
       "price": {
-        "eco": { "value": 300000, "tax": 350000, "available": 6},
-        "deluxe": { "value": 400000, "tax": 350000, "available": 9},
-        "skyBOSS": { "value": 1500000, "tax": 350000, "available": 10}
+        "eco": { "value": 300000, "tax": 350000, "available": 6 },
+        "deluxe": { "value": 400000, "tax": 350000, "available": 9 },
+        "skyBOSS": { "value": 1500000, "tax": 350000, "available": 10 }
       },
       "takeOffTime": "2021-05-20",
       "landingTime": "2021-05-21",
@@ -280,9 +281,9 @@
       "flightId": "005",
       "airliner": "MAYBAY05",
       "price": {
-        "eco": { "value": 440000, "tax": 350000, "available":4 },
+        "eco": { "value": 440000, "tax": 350000, "available": 4 },
         "deluxe": { "value": 740000, "tax": 350000, "available": 6 },
-        "skyBOSS": { "value": 1400000, "tax": 350000, "available": 10}
+        "skyBOSS": { "value": 1400000, "tax": 350000, "available": 10 }
       },
       "takeOffTime": "2021-05-21",
       "landingTime": "2021-05-21",
@@ -296,9 +297,9 @@
       "flightId": "007",
       "airliner": "MAYBAY07",
       "price": {
-        "eco": { "value": 230000, "tax": 350000, "available": 7},
-        "deluxe": { "value": 400000, "tax": 350000, "available": 3},
-        "skyBOSS": { "value": 1000000, "tax": 350000, "available": 2}
+        "eco": { "value": 230000, "tax": 350000, "available": 7 },
+        "deluxe": { "value": 400000, "tax": 350000, "available": 3 },
+        "skyBOSS": { "value": 1000000, "tax": 350000, "available": 2 }
       },
       "takeOffTime": "2021-05-17",
       "landingTime": "2021-05-17",
@@ -312,9 +313,9 @@
       "flightId": "009",
       "airliner": "MAYBAY09",
       "price": {
-        "eco": { "value": 500000, "tax": 350000, "available": 4},
-        "deluxe": { "value": 670000, "tax": 350000, "available": 1},
-        "skyBOSS": { "value": 1300000, "tax": 350000, "available": 3}
+        "eco": { "value": 500000, "tax": 350000, "available": 4 },
+        "deluxe": { "value": 670000, "tax": 350000, "available": 1 },
+        "skyBOSS": { "value": 1300000, "tax": 350000, "available": 3 }
       },
       "takeOffTime": "2021-05-17",
       "landingTime": "2021-05-17",
