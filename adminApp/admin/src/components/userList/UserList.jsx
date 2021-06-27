@@ -7,6 +7,7 @@ import { fetchAdmins, deleteAdmin } from '../../action';
 import { DeleteOutline } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 import Modal from '../modal/Model';
+import Notification from '../notification/Notification';
 
 
 function UserList(props) {
@@ -62,11 +63,15 @@ function UserList(props) {
   )
 
   return (
+    <>
     <div className="userList">
       <DataGrid rows={props.admins} disableSelectionOnClick columns={columns} pageSize={8} checkboxSelection />
       {showModal ? <Modal redirect='/admins'
         actions={actions} header='Warning' content={`Do you want to delete ${selectedAdmin.fullName}`} />: null}
     </div>
+    <Notification 
+      notify={props.alert} />
+    </>
   )
 }
 
@@ -85,7 +90,8 @@ const mapStateToProps = (state, ownProps) => {
     
   });
   return {
-    admins: admins
+    admins: admins,
+    alert: state.alert
   }
 }
 

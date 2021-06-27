@@ -1,18 +1,19 @@
 import React from 'react'
 
 import { useState } from "react";
+import { connect } from 'react-redux';
 import Notification from "../notification/Notification";
 
 function UserForm(props) {
   const [fullName, setFullName] = useState(props.admin.fullName);
   const [email, setEmail] =useState(props.admin.email);
   const [phoneNumber, setPhoneNumber] = useState(props.admin.phoneNumber);
-  const [notify, setNotify] = useState({ isOpen: false, message: '', type: ''});
+  //const [notify, setNotify] = useState({ isOpen: false, message: '', type: ''});
 
   const onSubmit = (e) => {
     e.preventDefault();
     props.handleSubmit({fullName, email, phoneNumber});
-    setNotify({ isOpen: true, message: 'Update infomation success!', type: 'success'});
+    //setNotify({ isOpen: true, message: 'Update infomation success!', type: 'success'});
   }
 
   const handleInputChange = (event) => {
@@ -73,11 +74,15 @@ function UserForm(props) {
 
     </form>
     <Notification 
-    notify={notify}
-    setNotify={setNotify} 
-  />
+      notify={props.alert} />
     </>
   )
 }
 
-export default UserForm
+const mapStateToProps = (state) => {
+  return {
+    alert: state.alert
+  }
+}
+
+export default connect(mapStateToProps)(UserForm)

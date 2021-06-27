@@ -1,62 +1,36 @@
 import React from 'react';
-import { Field, reduxForm } from 'redux-form';
+
+import { connect } from 'react-redux';
+import { createAdmin } from '../../action';
+import NewUserForm from '../newUserForm/NewUserForm.jsx';
+import Notification from '../notification/Notification';
 import './newUser.css';
 
-function NewUser() {
 
-  const onSubmit = (formValues) => {
-
-  }
-
-  const renderInput = ({ input, label, meta}) => {
-    const className = `field ${meta.error && meta.touched ? 'error': ''}`;
-    return (
-      <div className={className}>
-        <label>{label}</label>
-        <input {...input} />
-        {renderError(meta)}
-      </div>
-    )
-  }
-
-  const renderError = ({ error, touched}) => {
-    if(touched && error) {
-      return <div className="ui error message">
-        <div className="header">{error}</div>
-      </div>
-    }
+function NewUser(props) {
+  const handleSubmit = (formValues) => {
+    props.createAdmin({...formValues, checkpass: undefined});
   }
 
   return (
+    <>
     <div className="newUser">
       <h1 className="newUserTitle">New Admin</h1>
       <div className="formCard">
-        <form onSubmit={onSubmit} className="ui form error">
-          <Field name="email" component={renderInput} label="Email" />
-          <Field name="fullName" component={renderInput} label="Full Name" />
-          <Field name="phoneNumber" component={renderInput} label="Phone Number" />
-          <button className="ui button" type="submit">Submit</button>
-        </form>
+        <NewUserForm onSubmit={handleSubmit} />
       </div>
     </div>
+    <Notification 
+    notify={props.alert} />
+  </>
   )
 }
 
-const validate = formValues => {
-  const error = {};
-  if(!formValues.email) {
-    error.email = 'You must enter email';
+const mapStateToProps = (state) => {
+  return {
+    alert: state.alert,
   }
-  if(!formValues.fullName) {
-    error.fullName = 'You must enter full name';
-  }
-  if(!formValues.phoneNumber) {
-    error.phoneNumber = 'You must enter phone number';
-  }
-  return error;
 }
 
-export default reduxForm({
-  form: 'newUserForm',
-  validate: validate
-})(NewUser)
+
+export default connect(mapStateToProps, { createAdmin })(NewUser)

@@ -33,7 +33,6 @@ module.exports.userRegistaion = async (req, res) => {
   let user = await userModel.createUser(req.body);
   user = user.toJSON();
   delete user.hashedPassword;
-  delete user._id;
   res.status(201).json(user);
 }
 
