@@ -26,7 +26,6 @@ axiosJWT.interceptors.request.use(
   async (config) => {
     let currentDate = new Date();
     const decodedToken = jwt_decode(store.getState().auth.accessToken);
-    console.log(decodedToken);
     if (decodedToken.exp * 1000 < currentDate.getTime()) {
       const data = await refreshToken();
       config.headers["authorization"] = "Bearer " + data;

@@ -2,6 +2,7 @@
   flex: 4;
 }
 
-.formCard{
-  width: 100%;
+
+.newUserForm{
+  display: block;
 }
