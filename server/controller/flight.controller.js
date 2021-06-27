@@ -1,6 +1,7 @@
 const flightModel = require("../model/flights.model");
 const airlinerModel = require("../model/airliners.model");
 const airportModel = require("../model/airports.model");
+const mongoose = require("mongoose");
 
 const cabinFuselage = [
   {
@@ -284,9 +285,13 @@ module.exports.deleteFlight = (req, res) => {
     });
 };
 
-module.exports.listFlightInDate = (req, res) => {
+module.exports.listFlightInDate = async (req, res) => {
   if (!req.query.date || !req.query.start || !req.query.destination) {
     return res.status(400).json({ errors: "Not enough arguments" });
+  }
+  let passengers = 1;
+  if (req.query.passenger) {
+    passengers = parseInt(req.query.passenger);
   }
   let listAll = req.query.listall
     ? req.query.listall.toLowerCase() === "true"
@@ -299,8 +304,8 @@ module.exports.listFlightInDate = (req, res) => {
   let queryAggregate = [
     {
       $match: {
-        startFrom: req.query.start,
-        destination: req.query.destination,
+        startFrom: mongoose.Types.ObjectId(req.query.start),
+        destination: mongoose.Types.ObjectId(req.query.destination),
         takeOffTime: { $gt: current, $gt: date, $lte: tomorrow },
       },
     },
@@ -313,6 +318,20 @@ module.exports.listFlightInDate = (req, res) => {
       },
     },
     {
+      $lookup: {
+        from: "Airliners",
+        localField: "airliner",
+        foreignField: "_id",
+        as: "airliner",
+      },
+    },
+    {
+      $unwind: {
+        path: "$airliner",
+        preserveNullAndEmptyArrays: true,
+      },
+    },
+    {
       $addFields: {
         totalEco: {
           $size: {
@@ -320,8 +339,8 @@ module.exports.listFlightInDate = (req, res) => {
               input: "$tickets",
               as: "tickets",
               cond: {
-                $eq: ["$$this.status", true],
-                $eq: ["$$this.type", "Eco"],
+                $eq: ["$$tickets.status", true],
+                $eq: ["$$tickets.type", "Eco"],
               },
             },
           },
@@ -332,8 +351,8 @@ module.exports.listFlightInDate = (req, res) => {
               input: "$tickets",
               as: "tickets",
               cond: {
-                $eq: ["$$this.status", true],
-                $eq: ["$$this.type", "Deluxe"],
+                $eq: ["$$tickets.status", true],
+                $eq: ["$$tickets.type", "Deluxe"],
               },
             },
           },
@@ -344,8 +363,8 @@ module.exports.listFlightInDate = (req, res) => {
               input: "$tickets",
               as: "tickets",
               cond: {
-                $eq: ["$$this.status", true],
-                $eq: ["$$this.type", "SkyBOSS"],
+                $eq: ["$$tickets.status", true],
+                $eq: ["$$tickets.type", "SkyBOSS"],
               },
             },
           },
@@ -353,13 +372,70 @@ module.exports.listFlightInDate = (req, res) => {
       },
     },
   ];
-  flightModel
-    .aggregate(queryAggregate)
-    .then((result) => {
-      res.status(200).json(result);
-    })
-    .catch((e) => {
-      console.error(e);
-      res.status(500).json({ errors: e });
+  try {
+    let flights = await flightModel.aggregate(queryAggregate);
+    let deleteFlight = [];
+    for (let i = 0; i < flights.length; i++) {
+      flights[i].tickets.forEach((ticket) => {
+        if (ticket.status === false) {
+          if (ticket.type === "Eco") {
+            let createTime = ticket.createAt.getSeconds();
+            let currentTime = current.getSeconds();
+            let _24hoursSecond = 24 * 60 * 60;
+            if (currentTime < createTime + _24hoursSecond) {
+              flights[i].totalEco++;
+            }
+          }
+          if (ticket.type === "Deluxe") {
+            let createTime = ticket.createAt.getSeconds();
+            let currentTime = current.getSeconds();
+            let _24hoursSecond = 24 * 60 * 60;
+            if (currentTime < createTime + _24hoursSecond) {
+              flights[i].totalDeluxe++;
+            }
+          }
+          if (ticket.type === "SkyBOSS") {
+            let createTime = ticket.createAt.getSeconds();
+            let currentTime = current.getSeconds();
+            let _24hoursSecond = 24 * 60 * 60;
+            if (currentTime < createTime + _24hoursSecond) {
+              flights[i].totalSB++;
+            }
+          }
+        }
+      });
+      delete flights[i].tickets;
+      let full = 0;
+      flights[i].seat.forEach((s) => {
+        if (s.seatType === "Eco") {
+          if (flights[i].totalEco + passengers > s.amount) {
+            full++;
+          }
+        }
+        if (s.seatType === "Deluxe") {
+          if (flights[i].totalDeluxe + passengers >= s.amount) {
+            full++;
+          }
+        }
+        if (s.seatType === "SkyBOSS") {
+          if (flights[i].totalSB + passengers >= s.amount) {
+            full++;
+          }
+        }
+      });
+      if (full === 3) {
+        deleteFlight.push(flights[i]._id);
+      }
+    }
+    deleteFlight.forEach((f) => {
+      let i = 0;
+      for (; i < flights.length; i++) {
+        if (flights[i]._id === f) break;
+      }
+      flights.splice(i, 1);
     });
+    res.status(200).json(flights);
+  } catch (e) {
+    res.status(500).json({ errors: [e] });
+  }
 };
