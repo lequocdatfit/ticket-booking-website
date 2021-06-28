@@ -8,7 +8,15 @@ import {
   FETCH_ADMINS,
   DELETE_ADMIN,
   SHOW_ALERT,
-  HIDE_ALERT
+  HIDE_ALERT,
+
+  CREATE_FLIGHT,
+  FETCH_FLIGHTS,
+  FETCH_FLIGHT,
+  EDIT_FLIGHT,
+  DELETE_FLIGHT,
+  FETCH_AIRLINERS,
+  FETCH_AIRPORTS
 } from "./type";
 import axiosJWT from '../api/axiosJWT';
 import store from '../myStore';
@@ -146,4 +154,41 @@ const flashAlert = (message) => dispatch => {
   setTimeout(() => {
     dispatch(hideAlert())
   }, 5000);
+}
+
+export const fetchFLights = () => async dispatch => {
+  const res = await axiosJWT.get('/flight/', {
+    headers:  {
+      authorization: 'Bearer ' + store.getState().auth.accessToken
+    }
+  });
+  dispatch({
+    type: FETCH_FLIGHTS,
+    payload: res.data
+  });
+}
+
+
+export const fetchAirliners = () => async dispatch => {
+  const res = await axiosJWT.get('/airliner',  {
+    headers:  {
+      authorization: 'Bearer ' + store.getState().auth.accessToken
+    }
+  });
+  dispatch({
+    type: FETCH_AIRLINERS,
+    payload: res.data
+  });
+}
+
+export const fetchAirports = () => async dispatch => {
+  const res = await axiosJWT.get('/airport', {
+    headers:  {
+      authorization: 'Bearer ' + store.getState().auth.accessToken
+    }
+  });
+  dispatch({
+    type: FETCH_AIRPORTS,
+    payload: res.data
+  })
 }

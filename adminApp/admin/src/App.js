@@ -10,6 +10,9 @@ import store from './myStore';
 import UserList from './components/userList/UserList';
 import User from './components/user/User';
 import NewUser from './components/newUser/NewUser';
+import ListFlights from './components/listFlights/ListFlights';
+import AirlinerList from './components/airlinerList/AirlinerList';
+import AirportList from './components/airportList/AirportList';
 
 const PrivateRoute = ({ component: Component, ...rest }) => 
 (  
@@ -29,10 +32,13 @@ function App() {
           <div className="container">
             <SideBar />
             <Switch>
+              <PrivateRoute path="/airports" exact component={AirportList} />
               <PrivateRoute path="/admins/newAdmin" exact component={NewUser} />
               <PrivateRoute path="/" exact component={Home} />
               <PrivateRoute path="/admins" exact component={UserList} />
               <PrivateRoute path="/admins/:id" exact component={User} />
+              <PrivateRoute path="/flights" exact component={ListFlights} />
+              <PrivateRoute path="/airliners" exact component={AirlinerList} />
               <Route path="/login" exact>
                 <Login />
               </Route>

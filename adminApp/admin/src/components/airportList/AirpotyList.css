@@ -1,0 +1,20 @@
+.airportList{
+  flex: 4;
+}
+
+
+.AirportListEdit{
+  border: none;
+  border-radius: 10px;
+  padding: 5px 10px;
+  background-color: #3bb077;
+  color: white;
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+.AirportListDelete{
+  color: red;
+  cursor: pointer;
+  
+}

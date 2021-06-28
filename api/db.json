@@ -11,38 +11,7 @@
         "dateOfCommissioning": {
           "$date": "2018-05-11T00:00:00Z"
         },
-        "seatLayout": "3-3",
-        "passengerCapacity": [
-          {
-            "_id": {
-              "$oid": "60a28b93632bf62938581d61"
-            },
-            "seatType": "Eco",
-            "amount": 100
-          },
-          {
-            "_id": {
-              "$oid": "60a28b93632bf62938581d62"
-            },
-            "seatType": "Deluxe",
-            "amount": 20
-          },
-          {
-            "_id": {
-              "$oid": "60a75ed694474ceb87967747"
-            },
-            "seatType": "SkyBoss",
-            "amount": 10
-          }
-        ],
-
-        "__v": 1,
-        "additional": {
-          "color": "blue",
-          "size": "big"
-        }
-      },
-      "cabinFuselage": [
+	"cabinFuselage": [
         {
           "index": 1,
           "type": "SkyBOSS",
@@ -197,6 +166,37 @@
           "columns": 4
         }
       ],
+        "seatLayout": "3-3",
+        "passengerCapacity": [
+          {
+            "_id": {
+              "$oid": "60a28b93632bf62938581d61"
+            },
+            "seatType": "Eco",
+            "amount": 100
+          },
+          {
+            "_id": {
+              "$oid": "60a28b93632bf62938581d62"
+            },
+            "seatType": "Deluxe",
+            "amount": 20
+          },
+          {
+            "_id": {
+              "$oid": "60a75ed694474ceb87967747"
+            },
+            "seatType": "SkyBoss",
+            "amount": 10
+          }
+        ],
+
+        "__v": 1,
+        "additional": {
+          "color": "blue",
+          "size": "big"
+        }
+      },
       "price": {
         "eco": { "value": 200000, "tax": 350000, "available": 5 },
         "deluxe": { "value": 400000, "tax": 350000, "available": 6 },
