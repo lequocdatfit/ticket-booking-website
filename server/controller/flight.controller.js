@@ -161,7 +161,7 @@ const cabinFuselage = [
 
 module.exports.createFlight = async (req, res) => {
   try {
-    if (req.body.hasOwnProperty("seat")) {
+    /*if (req.body.hasOwnProperty("seat")) {
       req.body.seat = JSON.parse(req.body.seat);
     }
     if (req.body.hasOwnProperty("additional")) {
@@ -169,9 +169,9 @@ module.exports.createFlight = async (req, res) => {
     }
     if (req.body.hasOwnProperty("price")) {
       req.body.price = JSON.parse(req.body.price);
-    }
+    }*/
     if (req.body.hasOwnProperty("cabinFuselage")) {
-      req.body.cabinFuselage = JSON.parse(req.body.cabinFuselage);
+      /* req.body.cabinFuselage = JSON.parse(req.body.cabinFuselage); */
     } else {
       req.body.cabinFuselage = cabinFuselage;
     }

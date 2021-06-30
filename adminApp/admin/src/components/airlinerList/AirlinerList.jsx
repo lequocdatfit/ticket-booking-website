@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { DeleteOutline } from '@material-ui/icons';
+import Notification from '../notification/Notification';
 
 function AirlinerList(props) {
 
@@ -35,9 +36,18 @@ function AirlinerList(props) {
   if(!props.airliners) 
     return <div>Loading...</div>
   return (
+    <>
     <div className="airlinerList">
+      <div className="airlinerTitleContainer">
+        <h1 className="airlinerTitle">Airliners</h1>
+        <Link to="/airliners/newAirliner">
+          <button className="airlinerAddButton">Create</button>
+        </Link>
+      </div>
         <DataGrid rows={props.airliners} disableSelectionOnClick columns={columns} pageSize={9} checkboxSelection />
     </div>
+    <Notification notify={props.alert} />
+    </>
   )
 }
 
@@ -54,7 +64,8 @@ const mapStateToProps = (state) => {
     }
   });
   return {
-    airliners: airliners
+    airliners: airliners,
+    alert: state.alert
   }
 }
 

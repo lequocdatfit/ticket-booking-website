@@ -65,6 +65,12 @@ function UserList(props) {
   return (
     <>
     <div className="userList">
+      <div className="userListTitleContainer">
+        <h1 className="userListTitle">Admins</h1>
+        <Link>
+          <button className="userAddButton">Create</button>
+        </Link>
+      </div>
       <DataGrid rows={props.admins} disableSelectionOnClick columns={columns} pageSize={8} checkboxSelection />
       {showModal ? <Modal redirect='/admins'
         actions={actions} header='Warning' content={`Do you want to delete ${selectedAdmin.fullName}`} />: null}

@@ -1,0 +1,36 @@
+.newFlight {
+  flex: 4;
+  margin: 0 20px;
+}
+
+.newFlightFormWrapper {
+  width: 100%;
+  
+}
+
+.formSubmit{
+  margin-top: 30px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.left {
+  flex: 2;
+  padding: 20px;
+  -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+}
+
+.right {
+  flex: 1;
+  padding: 20px;
+  -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+  margin-left: 20px;
+}
+
+.buttonCreateFlight {
+  margin-top: 20px;
+}

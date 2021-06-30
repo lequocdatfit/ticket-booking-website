@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { DeleteOutline } from '@material-ui/icons';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Notification from '../notification/Notification';
 
 function ListFlights(props) {
 
@@ -43,7 +44,14 @@ function ListFlights(props) {
     return <div>Loading...</div>
   return (
     <div className="listFlights">
-        <DataGrid rows={props.flights} disableSelectionOnClick columns={columns} pageSize={9} checkboxSelection />
+      <div className="flightTitleContainer">
+        <h1 className="flightTitle">Flights</h1>
+        <Link to="/flights/newFlight">
+          <button className="flightAddButton">Create</button>
+        </Link>
+      </div>
+      <DataGrid rows={props.flights} disableSelectionOnClick columns={columns} pageSize={9} checkboxSelection />
+      <Notification notify={props.alert}/>
     </div>
   )
 }
@@ -69,7 +77,8 @@ const mapStateToProps = (state) => {
     
   });
   return {
-    flights: flights
+    flights: flights,
+    alert: state.alert
   }
 }
 
