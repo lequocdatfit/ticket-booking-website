@@ -45,7 +45,7 @@ module.exports.findById = (req, res) => {
 
 module.exports.patchAirliner = (req, res) => {
   try {
-    if (req.body.hasOwnProperty('passengerCapacity')) {
+    /* if (req.body.hasOwnProperty('passengerCapacity')) {
       req.body.passengerCapacity = JSON.parse(req.body.passengerCapacity);
     }
     if (req.body.hasOwnProperty('seatPitch')) {
@@ -53,7 +53,7 @@ module.exports.patchAirliner = (req, res) => {
     }
     if (req.body.hasOwnProperty('additional')) {
       req.body.additional = JSON.parse(req.body.additional);
-    }
+    } */
   }
   catch (e) {
     console.error(e);

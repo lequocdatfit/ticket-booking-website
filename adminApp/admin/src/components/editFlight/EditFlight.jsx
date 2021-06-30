@@ -1,7 +1,7 @@
 import React from 'react';
-import './newFlight.css';
+import './editFlight.css'
 import { connect } from 'react-redux';
-import { fetchAirports, fetchAirliners, createFlight } from '../../action';
+import { fetchAirports, fetchAirliners, fetchFlight, editFlight } from '../../action';
 import { useEffect } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { TextField, Button, InputAdornment, Select, FormControl, InputLabel, FormHelperText } from '@material-ui/core';
@@ -71,26 +71,29 @@ const renderInputAdornment = ({ input, label, meta }) => {
   )
 }
 
-function NewFlight(props) {
+function EditFlight(props) {
   useEffect(() => {
     props.fetchAirports();
     props.fetchAirliners();
+    props.fetchFlight(props.match.params.id);
   }, []);
 
   const onSubmit = (formValues) => {
-    props.createFlight({...formValues, price: {
+    props.editFlight(props.flight._id, {...formValues, price: {
       Eco: { value: formValues.Eco, tax: formValues.tax },
       Deluxe: { value: formValues.Deluxe, tax: formValues.tax },
       SkyBOSS: { value: formValues.SkyBOSS, tax: formValues.tax }
     }, cabinFuselage: cabinFuselage});
   }
 
-  if (!props.airports)
+  
+
+  if (!props.flight)
     return <div>Loading...</div>
   return (
     <div className="newFlight">
       <div className="newFlightTitleContainer">
-        <h1 className="newFlightTitle">New flight</h1>
+        <h1 className="newFlightTitle">Edit flight</h1>
       </div>
       <div className="newFlightFormWrapper">
         <form onSubmit={props.handleSubmit(onSubmit)}>
@@ -129,7 +132,7 @@ function NewFlight(props) {
           </div>
           
           <Button type="submit" className="buttonCreateFlight" variant="contained" color="primary">
-            Create flight
+            Update
           </Button>
         </form>
       </div>
@@ -137,12 +140,6 @@ function NewFlight(props) {
   )
 }
 
-const mapStateToProps = (state) => {
-  return {
-    airports: Object.values(state.airports),
-    airliners: Object.values(state.airliners)
-  }
-}
 
 const validate = (formValues) => {
   const errors = {};
@@ -178,9 +175,36 @@ const validate = (formValues) => {
   return errors;
 }
 
-const newFlightForm = reduxForm({
-  form: 'newFlightForm',
+const editFlightForm = reduxForm({
+  form: 'editFlightForm',
   validate: validate
-})(NewFlight);
+})(EditFlight);
 
-export default connect(mapStateToProps, { fetchAirports, fetchAirliners, createFlight })(newFlightForm)
+const mapStateToProps = (state, ownProps) => {
+  const flights = Object.values(state.flights);
+  const matchedflight = flights.find(flight => {
+    if(flight._id === ownProps.match.params.id) {
+      return flight;
+    }
+  });
+  //console.log(matchedflight.takeOffTime.slice(0, 16));
+  return {
+    airports: Object.values(state.airports),
+    airliners: Object.values(state.airliners),
+    flight: matchedflight,
+    initialValues: {
+      'startFrom': matchedflight.startFrom._id,
+      'destination': matchedflight.destination._id,
+      'airliner': matchedflight.airliner._id,
+      'type': matchedflight.type,
+      'takeOffTime': matchedflight.takeOffTime.slice(0, 16),
+      'landingTime': matchedflight.landingTime.slice(0, 16),
+      'Eco' : matchedflight.price.Eco.value,
+      'Deluxe': matchedflight.price.Deluxe.value,
+      'SkyBOSS': matchedflight.price.SkyBOSS.value,
+      'tax': matchedflight.price.Eco.tax
+    }
+  }
+}
+
+export default connect(mapStateToProps, { fetchAirports, fetchAirliners, fetchFlight, editFlight })(editFlightForm)

@@ -237,7 +237,7 @@ module.exports.list = (req, res) => {
 
 module.exports.patchFlight = async (req, res) => {
   try {
-    if (req.body.hasOwnProperty("seat")) {
+    /* if (req.body.hasOwnProperty("seat")) {
       req.body.seat = JSON.parse(req.body.seat);
     }
     if (req.body.hasOwnProperty("additional")) {
@@ -245,7 +245,7 @@ module.exports.patchFlight = async (req, res) => {
     }
     if (req.body.hasOwnProperty("cabinFuselage")) {
       req.body.cabinFuselage = JSON.parse(req.body.cabinFuselage);
-    }
+    } */
     if (req.body.hasOwnProperty("airliner")) {
       let airliner = await airlinerModel.findById(req.body.airliner);
       if (!airliner) throw new Error("Not exist airliner");

@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { DeleteOutline } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 import Notification from '../notification/Notification';
-import Modal from '../modal/Model';
+import Modal from '../modal/Modal';
 
 
 

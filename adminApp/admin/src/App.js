@@ -16,6 +16,9 @@ import AirportList from './components/airportList/AirportList';
 import NewFlight from './components/newFlight/NewFlight';
 import NewAirport from './components/newAirport/NewAirport';
 import NewAirliner from './components/newAirliner/NewAirliner';
+import EditFlight from './components/editFlight/EditFlight';
+import EditAirport from './components/editAirport/EditAirport';
+import EditAirliner from './components/editAirliner/EditAirliner';
 
 const PrivateRoute = ({ component: Component, ...rest }) => 
 (  
@@ -35,9 +38,12 @@ function App() {
           <div className="container">
             <SideBar />
             <Switch>
-              <PrivateRoute path="/airliners/newAirliner" exact component={NewAirliner} />
-              <PrivateRoute path="/airports/newAirport" exact component={NewAirport} />
               <PrivateRoute path="/flights/newFlight" exact component={NewFlight} />
+              <PrivateRoute path="/airports/:id" exact component={EditAirport} />
+              <PrivateRoute path="/flights/:id" exact component={EditFlight} />
+              <PrivateRoute path="/airliners/newAirliner" exact component={NewAirliner} />
+              <PrivateRoute path="/airliners/:id" exact component={EditAirliner} />
+              <PrivateRoute path="/airports/newAirport" exact component={NewAirport} />
               <PrivateRoute path="/airports" exact component={AirportList} />
               <PrivateRoute path="/admins/newAdmin" exact component={NewUser} />
               <PrivateRoute path="/" exact component={Home} />

@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { fetchAdmins, deleteAdmin } from '../../action';
 import { DeleteOutline } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
-import Modal from '../modal/Model';
+import Modal from '../modal/Modal';
 import Notification from '../notification/Notification';
 
 
@@ -67,7 +67,7 @@ function UserList(props) {
     <div className="userList">
       <div className="userListTitleContainer">
         <h1 className="userListTitle">Admins</h1>
-        <Link>
+        <Link to="/admins/newAdmin">
           <button className="userAddButton">Create</button>
         </Link>
       </div>

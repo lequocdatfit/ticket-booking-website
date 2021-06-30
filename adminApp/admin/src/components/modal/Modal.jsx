@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import history from '../../history';
 
-function Model(props) {
+function Modal(props) {
   const { redirect } = props;
   return ReactDOM.createPortal(
     <div onClick={() => history.push(redirect)} className="ui dimmer modals visible active">
@@ -16,4 +16,4 @@ function Model(props) {
   )
 }
 
-export default Model;
+export default Modal;

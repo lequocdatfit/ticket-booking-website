@@ -24,8 +24,8 @@ router.patch("/:id", [
   verifyAuth.validJWTNeeded,
   verifyAuth.minimumPermissionLevelRequired(
     config.permissionLevel.ADMIN,
-    controller.patchFlight
   ),
+  controller.patchFlight
 ]);
 
 router.delete("/:id", [

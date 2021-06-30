@@ -17,9 +17,14 @@ import {
   DELETE_FLIGHT,
   FETCH_AIRLINERS,
   FETCH_AIRPORTS,
+  FETCH_AIRPORT,
   CREATE_AIRPORT,
   CREATE_AIRLINER,
-  DELETE_AIRPORT
+  DELETE_AIRPORT,
+  DELETE_AIRLINER,
+  EDIT_AIRPORT,
+  FETCH_AIRLINER,
+  EDIT_AIRLINER
 } from "./type";
 import axiosJWT from '../api/axiosJWT';
 import store from '../myStore';
@@ -160,13 +165,25 @@ const flashAlert = (message) => dispatch => {
 }
 
 export const fetchFLights = () => async dispatch => {
-  const res = await axiosJWT.get('/flight/', {
+  const res = await axiosJWT.get('/flight/?limit=100', {
     headers:  {
       authorization: 'Bearer ' + store.getState().auth.accessToken
     }
   });
   dispatch({
     type: FETCH_FLIGHTS,
+    payload: res.data
+  });
+}
+
+export const fetchFlight = (flightId) => async dispatch => {
+  const res = await axiosJWT.get(`/flight/${flightId}`, {
+    headers: {
+      authorization: 'Bearer ' + store.getState().auth.accessToken
+    }
+  });
+  dispatch({
+    type: FETCH_FLIGHT,
     payload: res.data
   });
 }
@@ -190,6 +207,54 @@ export const createFlight = (formValues) => async dispatch => {
   }
 }
 
+export const editFlight = (id, formValues) => async dispatch => {
+  try {
+    const res = await axiosJWT.patch(`/flight/${id}`, formValues, {
+      headers: {
+        authorization: 'Bearer ' + store.getState().auth.accessToken
+      }
+    });
+    dispatch({
+      type: EDIT_FLIGHT,
+      payload: res.data
+    })
+    dispatch(showAlert('Update flight success!', 'success'));
+    setTimeout(() => {
+      dispatch(hideAlert())
+    }, 5000);
+    history.push('/flights');
+  } catch(err) {
+    dispatch(showAlert(err.response.data, 'error'));
+    setTimeout(() => {
+      dispatch(hideAlert())
+    }, 5000);
+  }
+}
+
+export const deleteFlight = (flight) => async dispatch => {
+  try {
+    const res = await axiosJWT.delete(`/flight/${flight._id}`, {
+      headers:  {
+        authorization: 'Bearer ' + store.getState().auth.accessToken
+      }
+    });
+    dispatch({
+      type: DELETE_FLIGHT,
+      payload: flight.flightId
+    });  
+    history.push('/flights');
+    dispatch(showAlert('Delete flight success!', 'success'));
+    setTimeout(() => {
+      dispatch(hideAlert())
+    }, 5000);
+  } catch(err) {
+    dispatch(showAlert(err.response.data, 'error'));
+      setTimeout(() => {
+        dispatch(hideAlert())
+      }, 5000);
+  }
+}
+
 
 export const fetchAirliners = () => async dispatch => {
   const res = await axiosJWT.get('/airliner',  {
@@ -199,6 +264,18 @@ export const fetchAirliners = () => async dispatch => {
   });
   dispatch({
     type: FETCH_AIRLINERS,
+    payload: res.data
+  });
+}
+
+export const fetchAirliner = (airlinerId) => async dispatch => {
+  const res = await axiosJWT.get(`/airliner/${airlinerId}`, {
+    headers:  {
+      authorization: 'Bearer ' + store.getState().auth.accessToken
+    }
+  });
+  dispatch({
+    type: FETCH_AIRLINER,
     payload: res.data
   });
 }
@@ -223,6 +300,53 @@ export const createAirliner = (formValues) => async dispatch => {
   
 }
 
+export const editAirliner = (airlinerId, formValues) => async dispatch => {
+  try {
+    const res = await axiosJWT.patch(`/airliner/${airlinerId}`, formValues, {
+      headers:  {
+        authorization: 'Bearer ' + store.getState().auth.accessToken
+      }
+    });
+    dispatch({
+      type: EDIT_AIRLINER,
+      payload: res.data
+    })
+    history.push('/airliners');
+    dispatch(showAlert('Update airliner success!', 'success'));
+    setTimeout(() => {
+      dispatch(hideAlert())
+    }, 5000);
+  } catch(err) {
+    dispatch(showAlert(err.response.data, 'success'));
+    setTimeout(() => {
+      dispatch(hideAlert())
+    }, 5000);
+  }
+}
+
+export const deleteAirliner = (airlinerId) => async dispatch => {
+  try {
+    const res = await axiosJWT.delete(`/airliner/${airlinerId}`, {
+      headers:  {
+        authorization: 'Bearer ' + store.getState().auth.accessToken
+      }
+    });
+    dispatch({
+      type: DELETE_AIRLINER,
+      payload: airlinerId
+    })
+    dispatch(showAlert('Delete airliner success!', 'success'));
+    setTimeout(() => {
+      dispatch(hideAlert())
+    }, 5000);
+  } catch(err) {
+    dispatch(showAlert(err.response.data, 'success'));
+    setTimeout(() => {
+      dispatch(hideAlert())
+    }, 5000);
+  }
+}
+
 export const fetchAirports = () => async dispatch => {
   const res = await axiosJWT.get('/airport', {
     headers:  {
@@ -231,6 +355,18 @@ export const fetchAirports = () => async dispatch => {
   });
   dispatch({
     type: FETCH_AIRPORTS,
+    payload: res.data
+  })
+}
+
+export const fetchAirport = (airportId) => async dispatch => {
+  const res = await axiosJWT.get(`/airport/${airportId}`, {
+    headers:  {
+      authorization: 'Bearer ' + store.getState().auth.accessToken
+    }
+  });
+  dispatch({
+    type: FETCH_AIRPORT,
     payload: res.data
   })
 }
@@ -254,19 +390,50 @@ export const createAirport = (formValues) => async dispatch => {
   }
 }
 
-export const deleteAirport = (airportId) => async dispatch => {
-  const res = await axiosJWT.delete(`/airport/${airportId}`,  {
-    headers:  {
-      authorization: 'Bearer ' + store.getState().auth.accessToken
-    }
-  });
-  dispatch({
-    type: DELETE_AIRPORT,
-    payload: airportId
-  });
-  dispatch(showAlert('Delete airport success!', 'success'));
-    setTimeout(() => {
-      dispatch(hideAlert())
-  }, 5000);
-  history.push('/airports');
+export const editAirport = (id, formValues) => async dispatch => {
+  try {
+    const res = await axiosJWT.patch(`/airport/${id}`, formValues,  {
+      headers:  {
+        authorization: 'Bearer ' + store.getState().auth.accessToken
+      }
+    });
+    dispatch({
+      type: EDIT_AIRPORT,
+      payload: res.data
+    });
+    history.push('/airports');
+    dispatch(showAlert('Update airport success!', 'success'));
+      setTimeout(() => {
+        dispatch(hideAlert())
+    }, 5000);
+  } catch(err) {
+    dispatch(showAlert(err.response.data, 'error'));
+      setTimeout(() => {
+        dispatch(hideAlert())
+    }, 5000);
+  }
 }
+
+export const deleteAirport = (airportId) => async dispatch => {
+  try {
+    const res = await axiosJWT.delete(`/airport/${airportId}`,  {
+      headers:  {
+        authorization: 'Bearer ' + store.getState().auth.accessToken
+      }
+    });
+    dispatch({
+      type: DELETE_AIRPORT,
+      payload: airportId
+    });
+    dispatch(showAlert('Delete airport success!', 'success'));
+      setTimeout(() => {
+        dispatch(hideAlert())
+    }, 5000);
+  } catch(err) {
+    dispatch(showAlert(err.response.data, 'error'));
+      setTimeout(() => {
+        dispatch(hideAlert())
+    }, 5000);
+  }
+}
+
