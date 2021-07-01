@@ -27,13 +27,26 @@ import {
   EDIT_AIRLINER
 } from "./type";
 import axiosJWT from '../api/axiosJWT';
+import axios from 'axios';
 import store from '../myStore';
 import history from '../history';
 
-export const signIn = (user) => {
-  return {
-    type: SIGN_IN,
-    payload: user
+export const signIn = (formValues) => async dispatch => {
+  try {
+    const res = await axios.post("authentication/login", formValues);
+    if(res.status === 201) {
+      dispatch({
+        type: SIGN_IN,
+        payload: res.data
+      });
+      history.push('/');
+      dispatch(showAlert('Welcome admin!', 'success'));
+        setTimeout(() => {
+          dispatch(hideAlert())
+        }, 2000);
+    }
+  } catch (error) {
+    dispatch(showAlert(error.response.data.error, 'error'));
   }
 };
 

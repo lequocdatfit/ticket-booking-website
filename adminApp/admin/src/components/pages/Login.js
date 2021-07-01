@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 import { signIn } from '../../action';
 import { Redirect } from 'react-router-dom';
 import history from '../../history';
-
-import axios from 'axios';
 import './Login.css';
 
 function Login(props) {
@@ -15,9 +13,7 @@ function Login(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("authentication/login", { email, password });
-      props.signIn(res.data);
-      history.push('/');
+      props.signIn({email, password});
     } catch (err) {
       console.log(err);
     }
@@ -41,6 +37,7 @@ function Login(props) {
               placeholder="password"
               onChange={(e) => setPassword(e.target.value)}
             />
+            {props.alert.isOpen && <p className="error">{props.alert.message}</p>}
             <button type="submit" className="submitButton">
               Login
             </button>
@@ -52,7 +49,8 @@ function Login(props) {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    isSignedIn: state.auth.isSignedIn
+    isSignedIn: state.auth.isSignedIn,
+    alert: state.alert
   }
 }
 
