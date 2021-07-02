@@ -34,11 +34,11 @@ function SelectService(props) {
           <div className="desciption">
             <p style={{ marginRight: 20 }}>
               <i style={{ marginRight: 10 }} className="fas fa-map-marker-alt"></i>
-              Điểm Khởi hành <span>{props.startFrom}</span>
+              Điểm Khởi hành <span>{props.startFrom.name}</span>
             </p>
             <p>
               <i style={{ marginRight: 10 }} className="fas fa-map-marker-alt"></i>
-              Điểm đến <span>{props.destination}</span>
+              Điểm đến <span>{props.destination.name}</span>
             </p>
           </div>
         </div>

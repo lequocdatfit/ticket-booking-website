@@ -12,7 +12,7 @@ function Modal(props) {
           {props.content}
         </div>
         <div className="actions">
-          {props.actions}
+          {props.actions()}
         </div>
       </div>
     </div>,    

@@ -24,13 +24,17 @@ function SelectFlight(props) {
       return (
         <div className="ui container grid" style={{ marginTop: 20 }}>
           <div className="ten wide column">
-            <ListFlight flights={props.flights} />
-            <div className="div" style={{ textAlign: 'center' }}>
-              <Link to="/passengers" className="ui button primary">
-                Tiếp tục
-              </Link>
-
-            </div>
+          {props.flights.length === 0 ? <div>Không có chuyến bay nào.</div> : 
+            <>
+              <ListFlight flights={props.flights} />
+              <div className="div" style={{ textAlign: 'center' }}>
+                <Link to="/passengers" className="ui button primary">
+                  Tiếp tục
+                </Link>
+              </div>
+            </>
+          }
+            
           </div>
           <div className="six wide column">
             <BookingInFor />

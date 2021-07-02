@@ -5,9 +5,9 @@ import './CardItem.css';
 
 
 function CardItem(props) {
-  const [showModal, setShowModal] = useState(false);
+  //const [showModal, setShowModal] = useState(false);
   return (
-    <div onClick={() => setShowModal(!showModal)} className="CardItem">
+    <div onClick={() => props.onOutSideClick()} className="CardItem">
       <div className="left-content">
         <img src={props.src} alt="seat" />
         <div className="header">
@@ -18,7 +18,7 @@ function CardItem(props) {
       <div className="right-content">
         <i class="fas fa-chevron-right"></i>
       </div>
-      {showModal && 
+      {props.showModal && 
         <Modal header={props.heading} 
           content={props.content}
           actions={props.actions} />
