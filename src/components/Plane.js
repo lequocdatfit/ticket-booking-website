@@ -6,7 +6,7 @@ import './Plane.css';
 
 function Plane(props) {
   
-  const renderSeats = props.airliner.cabinFuselage.map(cabin => {
+  const renderSeats = props.cabinFuselage.map(cabin => {
     return (
       <ol className="cabin fuselage" key={cabin.index}>
         {
