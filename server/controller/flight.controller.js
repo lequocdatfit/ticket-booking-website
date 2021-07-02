@@ -326,8 +326,36 @@ module.exports.listFlightInDate = async (req, res) => {
       },
     },
     {
+      $lookup: {
+        from: "Airports",
+        localField: "startFrom",
+        foreignField: "_id",
+        as: "startFrom",
+      },
+    },
+    {
+      $lookup: {
+        from: "Airports",
+        localField: "destination",
+        foreignField: "_id",
+        as: "destination",
+      },
+    },
+    {
       $unwind: {
         path: "$airliner",
+        preserveNullAndEmptyArrays: true,
+      },
+    },
+    {
+      $unwind: {
+        path: "$startFrom",
+        preserveNullAndEmptyArrays: true,
+      },
+    },
+    {
+      $unwind: {
+        path: "$destination",
         preserveNullAndEmptyArrays: true,
       },
     },
