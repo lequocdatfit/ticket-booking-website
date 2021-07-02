@@ -26,18 +26,18 @@ function ListFlight(props) {
         <td>
           <FormControlLabel value="Eco"
             checked={props.selectedFlight && flight.flightId === props.selectedFlight.flightId && props.selectedFlight.type === 'Eco'}
-            onChange={() => onSelectFlight({...flight, type: 'Eco', price: flight.price.eco})}
-            control={<Radio />} label="Eco" /><br/>{flight.price.eco.value} VNĐ</td>
+            onChange={() => onSelectFlight({...flight, type: 'Eco', price: flight.price.Eco})}
+            control={<Radio />} label="Eco" /><br/>{flight.price.Eco.value} VNĐ</td>
         <td>
           <FormControlLabel value="SkyBOSS"
             checked={props.selectedFlight && flight.flightId === props.selectedFlight.flightId && props.selectedFlight.type === 'SkyBOSS'}
-            onChange={() => onSelectFlight({...flight, type: 'SkyBOSS', price: flight.price.skyBOSS})}
-            control={<Radio />} label="SkyBOSS" /><br/>{flight.price.skyBOSS.value} VNĐ</td>
+            onChange={() => onSelectFlight({...flight, type: 'SkyBOSS', price: flight.price.SkyBOSS})}
+            control={<Radio />} label="SkyBOSS" /><br/>{flight.price.SkyBOSS.value} VNĐ</td>
         <td>
           <FormControlLabel value="Deluxe"
             checked={props.selectedFlight && flight.flightId === props.selectedFlight.flightId && props.selectedFlight.type === 'Deluxe'}
-            onChange={() => onSelectFlight({...flight, type: 'Deluxe', price: flight.price.deluxe})}
-            control={<Radio />} label="Deluxe" /><br/>{flight.price.deluxe.value} VNĐ</td>
+            onChange={() => onSelectFlight({...flight, type: 'Deluxe', price: flight.price.Deluxe})}
+            control={<Radio />} label="Deluxe" /><br/>{flight.price.Deluxe.value} VNĐ</td>
       </tr>
     )
   })

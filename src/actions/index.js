@@ -1,10 +1,14 @@
-import { SEARCH_FLIGHTS, SELECT_FLIGHT, SELECT_SEAT, REMOVE_SEAT } from "./types";
+import { SEARCH_FLIGHTS, SELECT_FLIGHT, SELECT_SEAT, REMOVE_SEAT, FETCH_AIRPORTS } from "./types";
 import Flight from "../api/Flight";
 import history from '../history';
+import axios from 'axios';
+import Airport from '../api/Airport';
 
-export const searchFlights = () => {
+export const searchFlights = (query) => {
   return async dispatch => {
-    const response = await Flight.get('/flights');
+    const response = await Flight.get('/flight/search', {
+      params: query
+    });
     console.log(response);
     dispatch({
       type: SEARCH_FLIGHTS,
@@ -33,4 +37,12 @@ export const removeSeat = (seat) => {
     type: REMOVE_SEAT,
     payload: seat
   }
+}
+
+export const fetchAirports = () => async dispatch => {
+  const res = await Airport.get('/airport');
+  dispatch({
+    type: FETCH_AIRPORTS,
+    payload: res.data
+  });
 }

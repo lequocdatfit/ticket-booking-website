@@ -13,7 +13,7 @@ function ListService(props) {
   }
 
   const SeatsMapcontent = (
-    <Plane airliner={props.airliner}/>
+    <Plane airliner={props.airliner} cabinFuselage={props.flight.cabinFuselage}/>
   )
 
   const LuggageContent = (
@@ -55,7 +55,8 @@ function ListService(props) {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    airliner : state.selectedFlight.airliner
+    airliner : state.selectedFlight.airliner,
+    flight: state.selectedFlight
   }
 }
 

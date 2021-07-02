@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect} from 'react';
 import { connect } from 'react-redux';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
@@ -10,6 +10,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import DateFnsUtils from '@date-io/date-fns';
 import Button from '@material-ui/core/Button';
+import { fetchAirports } from '../actions';
 
 import {
   MuiPickersUtilsProvider,
@@ -33,9 +34,16 @@ const destinations = [
 ]
 
 function FormBooking(props) {
+
+  useEffect(() => {
+    props.fetchAirports();
+  }, [])
+
   const onSubmit = (formValues) => {
     history.push('/select-flight');
   }
+  if(!props.airports)
+    return <div>Loading...</div>
   return (
     <div>
       <form onSubmit={props.handleSubmit(onSubmit)}>
@@ -45,20 +53,20 @@ function FormBooking(props) {
         <div className="field">
           <Field name="startFrom" component={renderSelect}
           label="Điểm khởi hành"
-           options={startFrom}
+           options={props.airports}
           />
         </div>
         <div className="field">
-          <Field name="takeOffTime" component={DateField} label="Ngày đi" />
+          <Field name="departureDay" component={DateField} label="Ngày đi" />
         </div>
         <div className="field">
           <Field name="destination" component={renderSelect} 
-          options={destinations}
+          options={props.airports}
           label="Điểm đến" />
         </div>
         { props.type === 'roundtrip' && (
           <div className="field">
-          <Field name="landingTime" component={DateField} label="Ngày về" />
+          <Field name="returnDay" component={DateField} label="Ngày về" />
         </div>
         )}
         <div style={{ textAlign: 'center'}}>
@@ -99,7 +107,7 @@ const renderSelect = ({ input, options, label, meta }) => {
           <em>None</em>
         </MenuItem>
         {options.map((item) => {
-          return <MenuItem key={item.value} value={item.value}>{item.title}</MenuItem>
+          return <MenuItem key={item._id} value={item}>{item.name}</MenuItem>
         })}
       </Select>
       {error && <FormHelperText>{meta.error}</FormHelperText>}
@@ -142,8 +150,8 @@ const validate = (formValues) => {
     'type',
     'startFrom',
     'destination',
-    'takeOffTime',
-    'landingTime',
+    'departureDay',
+    'returnDay',
   ];
 
   requiredFields.forEach(field => {
@@ -155,6 +163,13 @@ const validate = (formValues) => {
   if(formValues['startFrom'] === formValues['destination']) {
     errors['destination'] = 'Điểm đến không được trùng điểm khởi hành';
   }
+  if(formValues['departureDay'] && formValues['returnDay']) {
+    const departureDay = new Date(formValues['departureDay']);
+    const returnDay = new Date(formValues['returnDay']);
+    if(departureDay.getTime() > returnDay.getTime()) {
+      errors['returnDay'] = 'Ngày về phải sau ngày đi'
+    }
+  }
   return errors;
 }
 
@@ -162,6 +177,7 @@ const selector = formValueSelector('FormBooking');
 
 const mapStateToProps = state => {
   return {
+    airports: Object.values(state.airports),
     startFrom: selector(state, 'destination'),
     type: selector(state, 'type'),
     initialValues: {
@@ -177,4 +193,4 @@ const formWrapped = reduxForm({
   destroyOnUnmount: false
 })(FormBooking);
 
-export default connect(mapStateToProps, { searchFlights })(formWrapped);
+export default connect(mapStateToProps, { searchFlights, fetchAirports })(formWrapped);

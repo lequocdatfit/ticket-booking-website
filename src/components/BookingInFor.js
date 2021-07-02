@@ -43,9 +43,9 @@ function BookingInFor(props) {
           <div class="event">
             <div class="content">
               <div class="summary">
-                {props.startFrom}
+                {props.startFrom.name}
                 <i style={{ marginLeft: 20, marginRight: 20 }} class="fas fa-plane"></i>
-                {props.destination}
+                {props.destination.name}
                 {renderSelectFlight()}
               </div>
             </div>
