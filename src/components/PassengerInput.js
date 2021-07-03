@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { Form, Dropdown } from 'semantic-ui-react';
+import { Form, Dropdown, Input } from 'semantic-ui-react';
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
@@ -35,13 +35,15 @@ const countryOptions = [
 ]
 
 
-const renderTextField = ({ input, placeholder, label }) => {
+const renderTextField = ({ input, placeholder, label, meta }) => {
   return (
-    <Form.Field>
+    <Form.Field className={`${meta.touched && meta.invalid ? 'error': ''}`}>
       <label>{label}</label>
-      <input type="text"
+      <Input type="text"
         {...input}
-        placeholder={placeholder} />
+        
+        placeholder={placeholder}
+        />
     </Form.Field>
   )
 }
@@ -63,10 +65,10 @@ const renderSelectField = ({ input, label, placeholder }) => {
   )
 }
 
-const renderDatePicker = ({ input, label }) => {
+const renderDatePicker = ({ input, label, meta }) => {
   console.log(input);
   return (
-    <Form.Field className="customDatePickerWidth">
+    <Form.Field className={`customDatePickerWidth ${meta.touched && meta.invalid ? ' error' : ''}`}>
       <label>{label}</label>
       <DatePicker 
         selected={input.value} 
@@ -96,21 +98,41 @@ function PassengerInput() {
       <Form.Group widths="equal">
         <Field name="email" label="Email" placeholder="Địa chỉ emal" component={renderTextField} />
       </Form.Group>
-      <Form.Group>
+      <Form.Group widths="equal">
+        <Field name="passengerId" label="CMND" placeholder="CMND" component={renderTextField} />
+      </Form.Group>
+      <Form.Group widths="equal">
         <Field name="phone" label="Số điện thoại" placeholder="Số điện thoại" component={renderTextField} />
       </Form.Group>
+      
     </Form>
   )
 }
 
-const mapStateToProps = (state) => {
-  return {
-
-  }
+const validate = (formValues) => {
+  const errors = {};
+  const requiredField = [
+    'firstName',
+    'lastName',
+    'birthDay',
+    'country',
+    'address',
+    'email',
+    'phone',
+    'passengerId'
+  ];
+  requiredField.forEach(field => {
+    if(!formValues[field]) {
+      errors[field] = 'Không bỏ trống.'
+    }
+  })
+  return errors;
 }
+
 
 const wrapper = reduxForm({
   form: 'passenger',
+  validate: validate,
   destroyOnUnmount: false,
 })(PassengerInput);
 

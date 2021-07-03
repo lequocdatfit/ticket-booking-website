@@ -14,7 +14,7 @@ function SelectService(props) {
         <div className="ten wide column">
           <ListService />
           <div className="div" style={{ textAlign: 'center' }}>
-            <Link to="/select-service" className="ui button primary">
+            <Link to="/billing-info" className="ui button primary">
               Tiếp tục
             </Link>
           </div>
