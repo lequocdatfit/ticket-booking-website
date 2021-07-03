@@ -27,7 +27,7 @@ module.exports.findById = (req, res) => {
 
 module.exports.findByPNR = (req, res) => {
   bookingModel
-    .find(req.params.pnr)
+    .find({ pnr: req.params.pnr })
     .then((result) => {
       res.status(200).json(result);
     })

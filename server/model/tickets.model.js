@@ -1,21 +1,28 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-const ticketSchema = new Schema({
-  flightId: { type: mongoose.Types.ObjectId, ref: 'Flights' },
-  passenger: String,
-  passenderId: String,
-  phoneNumber: String,
-  type: String,
-  price: Number,
-  seat: String,
-  additionalBaggage: Number,
-  additional: Schema.Types.Mixed,
-  status: Boolean
-}, { timestamps: true });
+const ticketSchema = new Schema(
+  {
+    flightId: { type: mongoose.Types.ObjectId, ref: "Flights" },
+    passenger: String,
+    passenderId: String,
+    phoneNumber: String,
+    email: String,
+    address: String,
+    dateOfBirth: Date,
+    nationality: String,
+    type: String,
+    price: Number,
+    seat: String,
+    additionalBaggage: Number,
+    additional: Schema.Types.Mixed,
+    status: Boolean,
+  },
+  { timestamps: true }
+);
 
-const ticketModel = mongoose.model('Tickets', ticketSchema, 'Tickets');
+const ticketModel = mongoose.model("Tickets", ticketSchema, "Tickets");
 
 module.exports = {
   create: (ticket) => {
@@ -36,8 +43,10 @@ module.exports = {
     return ticketModel.findByIdAndDelete(_id);
   },
   list: (perPage, page) => {
-    return ticketModel.find()
+    return ticketModel
+      .find()
       .limit(perPage)
-      .skip(perPage * page).lean();
-  }
-}
+      .skip(perPage * page)
+      .lean();
+  },
+};

@@ -1,31 +1,47 @@
-const mongoose = require('mongoose');
-const { nanoid } = require('nanoid');
-
+const mongoose = require("mongoose");
+const { nanoid } = require("nanoid");
 
 const Schema = mongoose.Schema;
 
-const bookingSchema = new Schema({
-  pnr: { type: String, default: () => nanoid(6).toUpperCase(6) },
-  buyerName: String,
-  buyerId: String,
-  phoneNumber: String,
-  tickets: [{ type: mongoose.Types.ObjectId, ref: 'Tickets' }],
-  totalPrice: Number,
-  additional: Schema.Types.Mixed,
-  status: Boolean
-}, { timestamps: true });
+const bookingSchema = new Schema(
+  {
+    pnr: { type: String, default: () => nanoid(6).toUpperCase(6) },
+    buyerName: String,
+    buyerId: String,
+    phoneNumber: String,
+    email: String,
+    address: String,
+    dateOfBirth: Date,
+    nationality: String,
+    tickets: [{ type: mongoose.Types.ObjectId, ref: "Tickets" }],
+    totalPrice: Number,
+    additional: Schema.Types.Mixed,
+    status: Boolean,
+  },
+  { timestamps: true }
+);
 
-const bookingModel = mongoose.model('Bookings', bookingSchema, 'Bookings');
+const bookingModel = mongoose.model("Bookings", bookingSchema, "Bookings");
 
 module.exports = {
   create: (booking) => {
     return bookingModel.create(booking);
   },
   find: (query) => {
-    return bookingModel.find(query);
+    return bookingModel.find(query).populate({
+      path: "tickets",
+      populate: {
+        path: "flightId",
+      },
+    });
   },
   findById: (_id) => {
-    return bookingModel.findById(_id);
+    return bookingModel.findById(_id).populate({
+      path: "tickets",
+      populate: {
+        path: "flightId",
+      },
+    });
   },
   update: async (_id, data) => {
     let booking = await bookingModel.findOne({ _id: _id });
@@ -36,8 +52,16 @@ module.exports = {
     return bookingModel.findByIdAndDelete(_id);
   },
   list: (perPage, page) => {
-    return bookingModel.find()
+    return bookingModel
+      .find()
+      .populate({
+        path: "tickets",
+        populate: {
+          path: "flightId",
+        },
+      })
       .limit(perPage)
-      .skip(perPage * page).lean();
-  }
-}
+      .skip(perPage * page)
+      .lean();
+  },
+};
