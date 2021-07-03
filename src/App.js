@@ -7,6 +7,7 @@ import SelectFlight from './components/SelectFlight';
 import Passengers from './components/Passengers';
 import SelectService from './components/SelectService';
 import './App.css';
+import BillingInfo from './components/BillingInfo';
 
 
 function App() {
@@ -16,8 +17,8 @@ function App() {
       <Route path="/" exact component={Home} />
       <Route path="/select-flight" exact component={SelectFlight} />
       <Route path="/passengers" exact component={Passengers} />
-      <Route path="/select-service" exac component={SelectService} />
-        
+      <Route path="/select-service" exact component={SelectService} />
+      <Route path="/billing-info" exact component={BillingInfo} />
     </Router>
   )
 }
