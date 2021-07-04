@@ -1,4 +1,4 @@
-import { SEARCH_FLIGHTS, SELECT_FLIGHT, SELECT_SEAT, REMOVE_SEAT, FETCH_AIRPORTS } from "./types";
+import { SEARCH_FLIGHTS, SELECT_FLIGHT, SELECT_SEAT, REMOVE_SEAT, FETCH_AIRPORTS, CREATE_TICKET } from "./types";
 import Flight from "../api/Flight";
 import history from '../history';
 import axios from 'axios';
@@ -45,4 +45,11 @@ export const fetchAirports = () => async dispatch => {
     type: FETCH_AIRPORTS,
     payload: res.data
   });
+}
+
+export const createTicket = (ticket) => {
+  return {
+    type: CREATE_TICKET,
+    payload: ticket
+  }
 }

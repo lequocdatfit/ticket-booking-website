@@ -54,13 +54,7 @@ function NavBar() {
                 Chuyến bay của tôi
               </Link>
             </li>
-            <li className="nav-item">
-              <Link to="/sign-up" className="nav-links-mobile" onClick={closeMobileMenu}>
-                Sign In
-              </Link>
-            </li>
           </ul>
-          {button && <Button buttonStyle="btn--outline">SIGN IN</Button>}
         </div>
       </nav>
     </div>

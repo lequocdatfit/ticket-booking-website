@@ -8,6 +8,7 @@ import Passengers from './components/Passengers';
 import SelectService from './components/SelectService';
 import './App.css';
 import BillingInfo from './components/BillingInfo';
+import BookingSuccess from './components/BookingSuccess';
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
       <Route path="/passengers" exact component={Passengers} />
       <Route path="/select-service" exact component={SelectService} />
       <Route path="/billing-info" exact component={BillingInfo} />
+      <Route path="/booking-success" exact component={BookingSuccess} />
     </Router>
   )
 }
