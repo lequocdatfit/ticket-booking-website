@@ -53,12 +53,6 @@ function SideBar(props) {
                 Airports
               </li>
             </Link>
-            <Link to='/bookings'>
-            <li onClick={() => setSelectedItem(6)} className={`sidebarListItem ${selectedItem === 6 ? 'active' : ''}`}>
-              <EventNote className="sidebarIcon" />
-              Booking
-            </li>
-            </Link>
           </ul>
         </div>
       </div>

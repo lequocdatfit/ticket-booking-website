@@ -39,21 +39,22 @@ function App() {
             <SideBar />
             <Switch>
               <PrivateRoute path="/flights/newFlight" exact component={NewFlight} />
-              <PrivateRoute path="/airports/:id" exact component={EditAirport} />
-              <PrivateRoute path="/flights/:id" exact component={EditFlight} />
-              <PrivateRoute path="/airliners/newAirliner" exact component={NewAirliner} />
-              <PrivateRoute path="/airliners/:id" exact component={EditAirliner} />
-              <PrivateRoute path="/airports/newAirport" exact component={NewAirport} />
               <PrivateRoute path="/airports" exact component={AirportList} />
+              <PrivateRoute path="/airports/newAirport" exact component={NewAirport} />
+              <PrivateRoute path="/airliners/newAirliner" exact component={NewAirliner} />
               <PrivateRoute path="/admins/newAdmin" exact component={NewUser} />
               <PrivateRoute path="/" exact component={Home} />
               <PrivateRoute path="/admins" exact component={UserList} />
-              <PrivateRoute path="/admins/:id" exact component={User} />
               <PrivateRoute path="/flights" exact component={ListFlights} />
               <PrivateRoute path="/airliners" exact component={AirlinerList} />
               <Route path="/login" exact>
                 <Login />
               </Route>
+              <PrivateRoute path="/airports/:id" exact component={EditAirport} />
+              <PrivateRoute path="/flights/:id" exact component={EditFlight} />
+              <PrivateRoute path="/airliners/:id" exact component={EditAirliner} />
+              <PrivateRoute path="/admins/:id" exact component={User} />
+              
             </Switch>
           </div>
       </Router>

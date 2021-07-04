@@ -5,8 +5,10 @@ import { connect } from 'react-redux';
 import { formValueSelector } from 'redux-form';
 import { Form, Dropdown, Input } from 'semantic-ui-react';
 import { Field, reduxForm } from 'redux-form';
+import { createTicket } from '../actions'
 import Booking from '../api/Booking';
 import SelectedSeat from '../reducers/SelectedSeat';
+import history from '../history';
 
 const cardOptions = [
   { value: 'Visa', text: 'Visa' },
@@ -66,13 +68,14 @@ function BillingInfo(props) {
           passengerId: passenger.passengerId,
           phoneNumber: passenger.phone,
           type: selectedFlight.type,
-          price: selectedFlight.price.value + selectedFlight.price.tax,
-          seat: props.selectedSeat[0].id || '',
+          price: selectedFlight.totalPrice,
+          seat: props.selectedSeat[0] ? props.selectedSeat[0].id : '',
           status: true
         }
       ]
-    }).then(data => {
-      console.log(data);
+    }).then(res => {
+      props.createTicket(res.data);
+      history.push('/booking-success');
     }).catch(err => {
       console.log(err);
     })
@@ -83,14 +86,14 @@ function BillingInfo(props) {
       <div className="ui container grid" style={{ marginTop: 20 }}>
         <div className="ten wide column">
           <Form onSubmit={props.handleSubmit(onSubmit)}>
-            <h4 className="ui dividing header">Billing Information</h4>
+            <h4 className="ui dividing header">Thông tin thanh toán</h4>
             <div className="field">
-              <label>Card Type</label>
+              <label>Loại thẻ</label>
               <Field name="cardType" component={renderSelectField} />
             </div>
             <div className="fields">
               <div className="seven wide field">
-                <label>Card Number</label>
+                <label>Số thẻ</label>
                 <input type="text" name="card[number]" maxlength="16" placeholder="Card #" />
               </div>
               <div className="three wide field">
@@ -98,7 +101,7 @@ function BillingInfo(props) {
                 <input type="text" name="card[cvc]" maxlength="3" placeholder="CVC" />
               </div>
               <div className="six wide field">
-                <label>Expiration</label>
+                <label>Hạn thẻ</label>
                 <div className="two fields">
                   <div className="field">
                     <select className="ui fluid search dropdown" name="card[expire-month]">
@@ -182,4 +185,4 @@ const BillingInfoForm = reduxForm({
   form: 'billingInfoForm',
 })(BillingInfo);
 
-export default connect(mapStateToProps)(BillingInfoForm);
+export default connect(mapStateToProps, { createTicket })(BillingInfoForm);

@@ -4,6 +4,7 @@ import selectedFlight from './SelectedFlightReducer';
 import flightReducer from "./flightReducer";
 import selectedSeat from "./SelectedSeat";
 import airportReducer from './airportReducer';
+import ticketReducer from "./ticketReducer";
 import { reducer as formReducer } from 'redux-form';
 
 export default combineReducers({
@@ -11,5 +12,6 @@ export default combineReducers({
   flights: flightReducer,
   airports: airportReducer,
   selectedFlight: selectedFlight,
-  selectedSeat: selectedSeat
+  selectedSeat: selectedSeat,
+  ticket: ticketReducer
 });
