@@ -86,17 +86,17 @@ module.exports.deleteBooking = (req, res) => {
 
 module.exports.createBookingAndTickets = async (req, res) => {
   let ticketInfos;
-  // if (req.body.hasOwnProperty("ticketInfos")) {
-  //   ticketInfos = req.body.ticketInfos;
-  // }
-  // if (!Array.isArray(ticketInfos)) {
-  //   return res.status(400).json({ errors: ["Does not found any tickets"] });
-  // }
   if (req.body.hasOwnProperty("ticketInfos")) {
-    ticketInfos = JSON.parse(req.body.ticketInfos);
-  } else if (!Array.isArray(ticketInfos)) {
+    ticketInfos = req.body.ticketInfos;
+  }
+  if (!Array.isArray(ticketInfos)) {
     return res.status(400).json({ errors: ["Does not found any tickets"] });
   }
+  // if (req.body.hasOwnProperty("ticketInfos")) {
+  //   ticketInfos = JSON.parse(req.body.ticketInfos);
+  // } else if (!Array.isArray(ticketInfos)) {
+  //   return res.status(400).json({ errors: ["Does not found any tickets"] });
+  // }
   let ticketObjects = [];
   console.log(ticketObjects);
   try {
