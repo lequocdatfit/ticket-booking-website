@@ -32,6 +32,9 @@ module.exports = {
       path: "tickets",
       populate: {
         path: "flightId",
+        populate: {
+          path: "startFrom destination",
+        },
       },
     });
   },
@@ -40,6 +43,9 @@ module.exports = {
       path: "tickets",
       populate: {
         path: "flightId",
+        populate: {
+          path: "startFrom destination",
+        },
       },
     });
   },
@@ -58,6 +64,9 @@ module.exports = {
         path: "tickets",
         populate: {
           path: "flightId",
+          populate: {
+            path: "startFrom destination",
+          },
         },
       })
       .limit(perPage)
