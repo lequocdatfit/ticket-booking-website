@@ -9,6 +9,7 @@ import SelectService from './components/SelectService';
 import './App.css';
 import BillingInfo from './components/BillingInfo';
 import BookingSuccess from './components/BookingSuccess';
+import SearchTicket from './components/pages/SearchTicket';
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
     <Router history={history} >
       <NavBar />
       <Route path="/" exact component={Home} />
+      <Route path="/search-booking" exact component={SearchTicket} />
       <Route path="/select-flight" exact component={SelectFlight} />
       <Route path="/passengers" exact component={Passengers} />
       <Route path="/select-service" exact component={SelectService} />

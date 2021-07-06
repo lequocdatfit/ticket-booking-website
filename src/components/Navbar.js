@@ -50,7 +50,7 @@ function NavBar() {
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/my-flight" className="nav-links" onClick={closeMobileMenu}>
+              <Link to="/search-booking" className="nav-links" onClick={closeMobileMenu}>
                 Chuyến bay của tôi
               </Link>
             </li>
