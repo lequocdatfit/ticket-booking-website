@@ -24,7 +24,8 @@ import {
   DELETE_AIRLINER,
   EDIT_AIRPORT,
   FETCH_AIRLINER,
-  EDIT_AIRLINER
+  EDIT_AIRLINER,
+  FETCH_BOOKINGS,
 } from "./type";
 import axiosJWT from '../api/axiosJWT';
 import axios from 'axios';
@@ -450,3 +451,17 @@ export const deleteAirport = (airportId) => async dispatch => {
   }
 }
 
+export const fetchBookings = (flightId) => async dispatch => {
+  const res = await axiosJWT.get('/booking/flight', {
+    headers:  {
+      authorization: 'Bearer ' + store.getState().auth.accessToken
+    },
+    params : {
+      flightId: flightId
+    }
+  });
+  dispatch({
+    type: FETCH_BOOKINGS,
+    payload: res.data
+  });
+}
