@@ -1,26 +1,35 @@
-const express = require('express');
-const verifyAuth = require('../middleware/authorization/auth.validation.middleware');
-const controller = require('../controller/booking.controller');
-const config = require('../config/main.config');
+const express = require("express");
+const verifyAuth = require("../middleware/authorization/auth.validation.middleware");
+const controller = require("../controller/booking.controller");
+const config = require("../config/main.config");
 const router = express.Router();
 
-router.get('/', [verifyAuth.validJWTNeeded,
-verifyAuth.minimumPermissionLevelRequired(config.permissionLevel.ADMIN),
-controller.list]);
+router.get("/", [
+  verifyAuth.validJWTNeeded,
+  verifyAuth.minimumPermissionLevelRequired(config.permissionLevel.ADMIN),
+  controller.list,
+]);
 
-router.post('/', controller.addBooking);
+router.post("/", controller.addBooking);
 
-router.get('/:id', controller.findById);
+router.get("/flight", [
+  verifyAuth.validJWTNeeded,
+  verifyAuth.minimumPermissionLevelRequired(config.permissionLevel.ADMIN),
+  controller.searchByFlight,
+]);
 
-router.patch('/:id', controller.patchBooking);
+router.get("/:id", controller.findById);
 
-router.delete('/:id', [verifyAuth.validJWTNeeded,
-verifyAuth.minimumPermissionLevelRequired(config.permissionLevel.ADMIN),
-controller.deleteBooking]);
+router.patch("/:id", controller.patchBooking);
 
-router.get('/pnr/:pnr', controller.findByPNR);
+router.delete("/:id", [
+  verifyAuth.validJWTNeeded,
+  verifyAuth.minimumPermissionLevelRequired(config.permissionLevel.ADMIN),
+  controller.deleteBooking,
+]);
 
-router.post('/ticket', controller.createBookingAndTickets);
+router.get("/pnr/:pnr", controller.findByPNR);
+
+router.post("/ticket", controller.createBookingAndTickets);
 
 module.exports = router;
-

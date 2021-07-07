@@ -73,4 +73,76 @@ module.exports = {
       .skip(perPage * page)
       .lean();
   },
+  searchByFlight: (flightId) => {
+    const agg = [
+      {
+        $lookup: {
+          from: "Tickets",
+          localField: "tickets",
+          foreignField: "_id",
+          as: "tickets",
+        },
+      },
+      {
+        $unwind: {
+          path: "$tickets",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $match: {
+          "tickets.flightId": mongoose.Types.ObjectId(flightId),
+        },
+      },
+      {
+        $lookup: {
+          from: "Flights",
+          localField: "tickets.flightId",
+          foreignField: "_id",
+          as: "tickets.flightId",
+        },
+      },
+      {
+        $unwind: {
+          path: "$tickets.flightId",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $lookup: {
+          from: "Airports",
+          localField: "tickets.flightId.startFrom",
+          foreignField: "_id",
+          as: "tickets.flightId.startFrom",
+        },
+      },
+      {
+        $lookup: {
+          from: "Airports",
+          localField: "tickets.flightId.destination",
+          foreignField: "_id",
+          as: "tickets.flightId.destination",
+        },
+      },
+      {
+        $unwind: {
+          path: "$tickets.flightId.startFrom",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $unwind: {
+          path: "$tickets.flightId.destination",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $group: {
+          _id: "$_id",
+          tickets: { $push: "$tickets" },
+        },
+      },
+    ];
+    return bookingModel.aggregate(agg);
+  },
 };

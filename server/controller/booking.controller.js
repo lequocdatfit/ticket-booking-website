@@ -202,3 +202,18 @@ module.exports.createBookingAndTickets = async (req, res) => {
       res.status(500).json({ errors: e });
     });
 };
+
+module.exports.searchByFlight = (req, res) => {
+  if (!req.query.hasOwnProperty("flightId")) {
+    return res.status(400).json({ errors: ["No flightId"] });
+  }
+  //console.log(req.query.flightId);
+  bookingModel
+    .searchByFlight(req.query.flightId)
+    .then((result) => {
+      res.status(200).json(result);
+    })
+    .catch((e) => {
+      res.status(500).json(e);
+    });
+};
