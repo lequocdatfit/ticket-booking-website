@@ -139,6 +139,7 @@ module.exports = {
       {
         $group: {
           _id: "$_id",
+          pnr: { $first: "$pnr" },
           buyerName: { $first: "$buyerName" },
           buyerId: { $first: "$buyerId" },
           phoneNumber: { $first: "$phoneNumber" },
