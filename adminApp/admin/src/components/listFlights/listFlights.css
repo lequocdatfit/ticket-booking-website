@@ -34,5 +34,10 @@
 .FlightListDelete{
   color: red;
   cursor: pointer;
-  
+}
+
+.FlightListBooking {
+  cursor: pointer;
+  margin-right: 20px;
+  color: #1a2b8d;
 }

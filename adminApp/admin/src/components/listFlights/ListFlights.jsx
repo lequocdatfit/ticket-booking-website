@@ -1,23 +1,27 @@
 import React from 'react';
 import './listFlights.css';
 import { DataGrid } from '@material-ui/data-grid';
-import { fetchFLights, deleteFlight } from '../../action';
+import { fetchFLights, deleteFlight, fetchBookings } from '../../action';
 import { useEffect, useState } from 'react';
-import { DeleteOutline } from '@material-ui/icons';
+import { DeleteOutline, EventNote } from '@material-ui/icons';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Notification from '../notification/Notification';
+import BookingList from '../bookingList/BookingList';
 import Modal from '../modal/Modal';
+import BookingModal from '../bookingModal/BookingModal';
+
 
 function ListFlights(props) {
   const [showModal, setShowModal] = useState(false);
+  const [showBookingModal, setShowBookingModal] = useState(false);
   const [selectedFlight, setSelectedFlight] = useState(null);
   useEffect(() => {
     props.fetchFLights();
   }, []);
 
   const columns = [
-    { field: 'id', headerName: 'ID', width: 100 },
+    { field: 'id', headerName: 'ID', width: 80 },
     { field: 'takeOffTime', headerName: 'Take-off time', width: 130 },
     { field: 'landingTime', headerName: 'landing time', width: 130 },
     { 
@@ -27,7 +31,7 @@ function ListFlights(props) {
     { field: 'destination', headerName: 'Destination', width: 130, 
       valueFormatter: ({value}) => value.name
     },
-    { field: 'type', headerName: 'Type', width: 130 },
+    { field: 'type', headerName: 'Type', width: 110 },
     { field: 'airliner', headerName: 'Airliner', width: 130,
       valueFormatter: ({value}) => value.manufacturer + ' ' + value.model },
     { field: 'action', headerName: 'Actions', width: 200, renderCell : (params) => {
@@ -36,12 +40,18 @@ function ListFlights(props) {
           <Link to={"/flights/" + params.row._id}>
             <button className="FlightListEdit">Edit</button>
           </Link>
+          <EventNote className="FlightListBooking" onClick={() => onShowBooking(params.row)} />
           <DeleteOutline
            className="FlightListDelete" onClick={() => onDeleteFlight(params.row)} />
         </>
       )
     }}
   ];
+
+  const onShowBooking = (flight) => {
+    props.fetchBookings(flight._id);
+    setShowBookingModal(true);
+  }
 
   const onDeleteFlight = (flight) => {
     setSelectedFlight(flight);
@@ -60,6 +70,12 @@ function ListFlights(props) {
     </>
   )
 
+  const bookingAction = (
+    <>
+      <button onClick={() => setShowBookingModal(false)} className="ui button">Cancel</button>
+    </>
+  )
+
   if(!props.flights) 
     return <div>Loading...</div>
   
@@ -75,6 +91,10 @@ function ListFlights(props) {
       <Notification notify={props.alert}/>
       {showModal ? <Modal redirect='/flights'
         actions={actions} header='Warning' content={`Do you want to delete flight with Id: ${selectedFlight.id} ?`} />: null}
+      {
+        showBookingModal ? <BookingModal redirect='/flights'
+        actions={bookingAction} header="Booking List" content={BookingList} /> : null
+      }
     </div>
   )
 }
@@ -105,4 +125,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { fetchFLights, deleteFlight })(ListFlights);
+export default connect(mapStateToProps, { fetchFLights, deleteFlight, fetchBookings })(ListFlights);

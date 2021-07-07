@@ -6,6 +6,7 @@ import flightReducer from './flightReducer';
 import AirlinerReducer from "./AirlinerReducer";
 import alert from './alertReducer';
 import airportReducer from "./airportReducer";
+import bookingReducer from './bookingReducer';
 
 export default combineReducers({
   auth: authReducer,
@@ -14,5 +15,6 @@ export default combineReducers({
   alert: alert,
   flights: flightReducer,
   airliners: AirlinerReducer,
-  airports: airportReducer
+  airports: airportReducer,
+  bookings: bookingReducer,
 });
