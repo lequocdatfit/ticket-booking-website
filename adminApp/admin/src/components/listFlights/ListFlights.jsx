@@ -1,7 +1,13 @@
 import React from 'react';
 import './listFlights.css';
 import { DataGrid } from '@material-ui/data-grid';
-import { fetchFLights, deleteFlight, fetchBookings } from '../../action';
+import { 
+  fetchFLights,
+  deleteFlight,
+  fetchBookings, 
+  clearBookings, 
+  deleteBooking 
+} from '../../action';
 import { useEffect, useState } from 'react';
 import { DeleteOutline, EventNote } from '@material-ui/icons';
 import { connect } from 'react-redux';
@@ -49,6 +55,7 @@ function ListFlights(props) {
   ];
 
   const onShowBooking = (flight) => {
+    props.clearBookings();
     props.fetchBookings(flight._id);
     setShowBookingModal(true);
   }
@@ -65,14 +72,14 @@ function ListFlights(props) {
   
   const actions = (
     <>
-      <button onClick={() => handleDelete()} className="ui negative button">Confirm</button>
-      <button onClick={() => setShowModal(false)} className="ui button">Back</button>
+      <button onClick={() => setShowModal(false)} className="ui negative button">No</button>
+      <button onClick={() => handleDelete()} className="ui positive button">Yes</button>
     </>
   )
 
   const bookingAction = (
     <>
-      <button onClick={() => setShowBookingModal(false)} className="ui button">Cancel</button>
+      <button onClick={() => setShowBookingModal(false)} className="ui positive button">Done</button>
     </>
   )
 
@@ -89,11 +96,11 @@ function ListFlights(props) {
       </div>
       <DataGrid rows={props.flights} disableSelectionOnClick columns={columns} pageSize={9} checkboxSelection />
       <Notification notify={props.alert}/>
-      {showModal ? <Modal redirect='/flights'
+      {showModal ? <Modal redirect='/flights' type="tiny"
         actions={actions} header='Warning' content={`Do you want to delete flight with Id: ${selectedFlight.id} ?`} />: null}
       {
         showBookingModal ? <BookingModal redirect='/flights'
-        actions={bookingAction} header="Booking List" content={BookingList} /> : null
+        actions={bookingAction} header="Booking List" content={<BookingList rows={props.bookings} onDelete={props.deleteBooking} />} /> : null
       }
     </div>
   )
@@ -103,26 +110,16 @@ const mapStateToProps = (state) => {
   const flights = Object.values(state.flights);
   flights.forEach((flight, index) => {
     flight.id = flight.flightId
-    /* if(flight.takeOffTime) {
-      let d = new Date(flight.takeOffTime);
-      let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
-      let mo = new Intl.DateTimeFormat('en', { month: 'short' }).format(d);
-      let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d);
-      flight.takeOffTime = `${ye}-${mo}-${da}`;
-    }
-    if(flight.landingTime) {
-      let d = new Date(flight.landingTime);
-      let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
-      let mo = new Intl.DateTimeFormat('en', { month: 'short' }).format(d);
-      let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d);
-      flight.landingTime = `${ye}-${mo}-${da}`;
-    } */
-    
+  });
+  const bookings = Object.values(state.bookings);
+  bookings.forEach((booking, index) => {
+    booking.id = index + 1;
   });
   return {
     flights: flights,
+    bookings: bookings,
     alert: state.alert
   }
 }
 
-export default connect(mapStateToProps, { fetchFLights, deleteFlight, fetchBookings })(ListFlights);
+export default connect(mapStateToProps, { fetchFLights, deleteFlight, fetchBookings, clearBookings, deleteBooking })(ListFlights);
