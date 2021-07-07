@@ -1,7 +1,13 @@
 import React from 'react';
 import './listFlights.css';
 import { DataGrid } from '@material-ui/data-grid';
-import { fetchFLights, deleteFlight, fetchBookings, clearBookings } from '../../action';
+import { 
+  fetchFLights,
+  deleteFlight,
+  fetchBookings, 
+  clearBookings, 
+  deleteBooking 
+} from '../../action';
 import { useEffect, useState } from 'react';
 import { DeleteOutline, EventNote } from '@material-ui/icons';
 import { connect } from 'react-redux';
@@ -66,14 +72,14 @@ function ListFlights(props) {
   
   const actions = (
     <>
-      <button onClick={() => handleDelete()} className="ui negative button">Confirm</button>
-      <button onClick={() => setShowModal(false)} className="ui button">Back</button>
+      <button onClick={() => setShowModal(false)} className="ui negative button">No</button>
+      <button onClick={() => handleDelete()} className="ui positive button">Yes</button>
     </>
   )
 
   const bookingAction = (
     <>
-      <button onClick={() => setShowBookingModal(false)} className="ui button">Cancel</button>
+      <button onClick={() => setShowBookingModal(false)} className="ui positive button">Done</button>
     </>
   )
 
@@ -90,11 +96,11 @@ function ListFlights(props) {
       </div>
       <DataGrid rows={props.flights} disableSelectionOnClick columns={columns} pageSize={9} checkboxSelection />
       <Notification notify={props.alert}/>
-      {showModal ? <Modal redirect='/flights'
+      {showModal ? <Modal redirect='/flights' type="tiny"
         actions={actions} header='Warning' content={`Do you want to delete flight with Id: ${selectedFlight.id} ?`} />: null}
       {
         showBookingModal ? <BookingModal redirect='/flights'
-        actions={bookingAction} header="Booking List" content={<BookingList rows={props.bookings} />} /> : null
+        actions={bookingAction} header="Booking List" content={<BookingList rows={props.bookings} onDelete={props.deleteBooking} />} /> : null
       }
     </div>
   )
@@ -116,4 +122,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { fetchFLights, deleteFlight, fetchBookings, clearBookings })(ListFlights);
+export default connect(mapStateToProps, { fetchFLights, deleteFlight, fetchBookings, clearBookings, deleteBooking })(ListFlights);

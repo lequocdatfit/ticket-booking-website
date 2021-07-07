@@ -25,7 +25,8 @@ import {
   FETCH_AIRLINER,
   EDIT_AIRLINER,
   FETCH_BOOKINGS,
-  CLEAR_BOOKINGS
+  CLEAR_BOOKINGS,
+  DELETE_BOOKING
 } from "./type";
 import axiosJWT from '../api/axiosJWT';
 import axios from 'axios';
@@ -462,7 +463,7 @@ export const fetchBookings = (flightId) => async dispatch => {
   });
   dispatch({
     type: FETCH_BOOKINGS,
-    payload: res.data[0].tickets
+    payload: res.data,
   });
 }
 
@@ -470,4 +471,20 @@ export const clearBookings = () => {
   return {
     type: CLEAR_BOOKINGS,
   }
+}
+
+export const deleteBooking = (bookingId) => async dispatch => {
+  await axiosJWT.delete(`/booking/${bookingId}`,  {
+    headers:  {
+      authorization: 'Bearer ' + store.getState().auth.accessToken
+    }
+  });
+  dispatch({
+    type: DELETE_BOOKING,
+    payload: bookingId
+  });
+  dispatch(showAlert('Delete booking success!', 'success'));
+    setTimeout(() => {
+      dispatch(hideAlert())
+  }, 3000);
 }
