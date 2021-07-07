@@ -139,7 +139,19 @@ module.exports = {
       {
         $group: {
           _id: "$_id",
+          buyerName: { $first: "$buyerName" },
+          buyerId: { $first: "$buyerId" },
+          phoneNumber: { $first: "$phoneNumber" },
+          email: { $first: "$email" },
+          address: { $first: "$address" },
+          dateOfBirth: { $first: "$dateOfBirth" },
+          nationality: { $first: "$nationality" },
+          totalPrice: { $first: "$totalPrice" },
+          additional: { $first: "$additional" },
+          status: { $first: "$status" },
           tickets: { $push: "$tickets" },
+          updatedAt: { $first: "$updatedAt" },
+          createdAt: { $first: "$createdAt" },
         },
       },
     ];
