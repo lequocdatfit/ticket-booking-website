@@ -9,9 +9,25 @@ import { connect } from 'react-redux';
 function ListService(props) {
   const [showSeatModal, setShowSeatModal] = useState(false);
   const [showLuggageModal, setShowLuggageModal] = useState(false);
-  
+  let cabinIndex = 0;
+  switch(props.flight.type) {
+    case 'Deluxe':
+      cabinIndex = 1;
+      break;
+    case 'SkyBOSS':
+      cabinIndex = 0;
+      break;
+    case 'Eco':
+      cabinIndex = 2;
+      break;
+    default:
+      break;
+  }
   const SeatsMapcontent = (
-    <Plane airliner={props.airliner} cabinFuselage={props.flight.cabinFuselage}/>
+    <Plane 
+      airliner={props.airliner} 
+      cabin={props.flight.cabinFuselage[cabinIndex]} 
+      type={props.flight.type}/>
   )
 
   const LuggageContent = (

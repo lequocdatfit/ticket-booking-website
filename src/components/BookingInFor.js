@@ -12,6 +12,7 @@ function BookingInFor(props) {
       <div>
         <div>Khởi hành lúc: {props.selectedFlight.takeOffTime}</div>
         <div>Hạ cánh lúc: {props.selectedFlight.landingTime}</div>
+        <div>Loại vé: {props.selectedFlight.type}</div>
         <div className="ui content">
           Giá vé: <span className="ui header red">{props.selectedFlight.price.value} VNĐ</span>
         </div>
