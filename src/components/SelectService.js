@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import BookingInFor from './BookingInFor';
 import ListService from './ListService';
 import { connect } from 'react-redux';
@@ -13,7 +13,10 @@ function SelectService(props) {
       <div className="ui container grid" style={{ marginTop: 20 }}>
         <div className="ten wide column">
           <ListService />
-          <div className="div" style={{ textAlign: 'center' }}>
+          <div className="div" style={{ display: 'flex', justifyContent: 'space-evenly', marginTop: '35px' }}>
+            <Link to="/passengers" className="ui button">
+              Quay lại
+            </Link>
             <Link to="/billing-info" className="ui button primary">
               Tiếp tục
             </Link>
@@ -25,6 +28,8 @@ function SelectService(props) {
       </div>
     )
   }
+  if(!props.startFrom) 
+    return <Redirect to="/" />
 
   return (
     <div>

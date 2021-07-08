@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import BookingInFor from './BookingInFor';
 import { connect } from 'react-redux';
 import { formValueSelector } from 'redux-form';
@@ -7,7 +7,6 @@ import { Form, Dropdown, Input } from 'semantic-ui-react';
 import { Field, reduxForm } from 'redux-form';
 import { createTicket } from '../actions'
 import Booking from '../api/Booking';
-import SelectedSeat from '../reducers/SelectedSeat';
 import history from '../history';
 
 const cardOptions = [
@@ -126,7 +125,10 @@ function BillingInfo(props) {
                 </div>
               </div>
             </div>
-            <div className="div" style={{ textAlign: 'center' }}>
+            <div className="div" style={{ display: 'flex', justifyContent: 'space-evenly', marginTop: '35px' }}>
+              <Link to="/select-service" className="ui button">
+                Quay lại
+              </Link>
               <button type="submit" className="ui button primary">
                 Đặt vé
               </button>
@@ -140,6 +142,9 @@ function BillingInfo(props) {
       </div>
     )
   }
+
+  if(!props.startFrom) 
+    return <Redirect to="/" />
 
   return (
     <div>

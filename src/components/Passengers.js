@@ -2,7 +2,7 @@ import React from 'react';
 import BookingInFor from './BookingInFor';
 import { connect } from 'react-redux';
 import { formValueSelector } from 'redux-form';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 import PassengerInput from './PassengerInput';
 
@@ -13,7 +13,10 @@ function Passengers(props) {
       <div className="ui container grid" style={{ marginTop: 20 }}>
         <div className="ten wide column">
           <PassengerInput />
-          <div className="div" style={{ textAlign: 'center' }}>
+          <div className="div" style={{ display: 'flex', justifyContent: 'space-evenly', marginTop: '35px' }}>
+            <Link to="/select-flight" className="ui button">
+              Quay lại
+            </Link>
             <Link to="/select-service" className="ui button primary">
               Tiếp tục
             </Link>
@@ -26,6 +29,8 @@ function Passengers(props) {
       </div>
     )
   }
+  if (!props.startFrom)
+    return <Redirect to="/" />
 
   return (
     <div>

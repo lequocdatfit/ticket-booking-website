@@ -2,19 +2,21 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import BookingInFor from './BookingInFor';
 import { formValueSelector } from 'redux-form';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { searchFlights } from '../actions';
 import ListFlight from './ListFlight';
 import './SelectFlight.css'
 
 function SelectFlight(props) {
   useEffect(() => {
-    props.searchFlights({
-      date: props.departureDay,
-      start: props.startFrom._id,
-      destination: props.destination._id,
-      passenger: 1 
-    });
+    if(props.startFrom) {
+        props.searchFlights({
+        date: props.departureDay,
+        start: props.startFrom._id,
+        destination: props.destination._id,
+        passenger: 1 
+      });
+    }
   }, []);
 
   const renderFlights = () => {
@@ -27,7 +29,10 @@ function SelectFlight(props) {
           {props.flights.length === 0 ? <div>Không có chuyến bay nào.</div> : 
             <>
               <ListFlight flights={props.flights} />
-              <div className="div" style={{ textAlign: 'center' }}>
+              <div className="div" style={{ display: 'flex', justifyContent: 'space-evenly', marginTop: '35px'}}>
+                <Link to="/" className="ui button">
+                  Quay lại
+                </Link>
                 <Link to="/passengers" className="ui button primary">
                   Tiếp tục
                 </Link>
@@ -44,6 +49,8 @@ function SelectFlight(props) {
       )
     }
   }
+  if(!props.startFrom)
+    return <Redirect to="/" />
   return (
     <div>
       <div className="ui container wrapper">
