@@ -150,7 +150,8 @@ function BillingInfo(props) {
     <div>
       <div className="ui container wrapper">
         <div className="search__info">
-          <h3>CHUYẾN BAY MỘT CHIỀU | 1 Người lớn</h3>
+          {props.type === 'oneway' && <h3>CHUYẾN BAY MỘT CHIỀU | 1 Người lớn</h3>}
+          {props.type === 'roundtrip' && <h3>CHUYẾN BAY KHỨ HỒI | 1 Người lớn</h3>}
           <div className="desciption">
             <p style={{ marginRight: 20 }}>
               <i style={{ marginRight: 10 }} className="fas fa-map-marker-alt"></i>

@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { formValueSelector } from 'redux-form';
 
 function BookingInFor(props) {
-  console.log(props.passenger);
   const renderSelectFlight = () => {
     if (!props.selectedFlight) {
       return null;
@@ -22,6 +21,32 @@ function BookingInFor(props) {
       </div>
     )
   }
+
+  const renderSelectedReturnFlight = () => {
+    if (!props.selectedReturnFlight) 
+      return null;
+    return (
+      <div>
+        <div>Khởi hành lúc: {props.selectedReturnFlight.takeOffTime}</div>
+        <div>Hạ cánh lúc: {props.selectedReturnFlight.landingTime}</div>
+        <div>Loại vé: {props.selectedReturnFlight.type}</div>
+        <div className="ui content">
+          Giá vé: <span className="ui header red">{props.selectedReturnFlight.price.value} VNĐ</span>
+        </div>
+        <div className="ui content">
+          Thuế: <span className="ui header red">{props.selectedReturnFlight.price.tax} VNĐ</span>
+        </div>
+      </div>
+    )
+  }
+
+  let totalPrice = 0;
+  if(props.selectedFlight) {
+    totalPrice += props.selectedFlight.totalPrice;
+  }
+  if(props.selectedReturnFlight) {
+    totalPrice += props.selectedReturnFlight.totalPrice;
+  }
   return (
     <div class="ui card">
       <div class="content">
@@ -35,7 +60,7 @@ function BookingInFor(props) {
               <div class="summary">
                 {props.passenger.firstName && <span>Họ và tên: {props.passenger.firstName}</span>}
                 {props.passenger.lastName && <span>{' ' + props.passenger.lastName}</span>}
-                {props.passenger.passengerId && <p>CMND: {props.passenger.passengerId}</p> }
+                {props.passenger.passengerId && <p>CMND: {props.passenger.passengerId}</p>}
               </div>
             </div>
           </div>
@@ -56,9 +81,26 @@ function BookingInFor(props) {
           </div>
         </div>
       </div>
+      {props.type === 'roundtrip' &&
+        <div className="content">
+          <h4 class="ui header">Chuyến về</h4>
+          <div class="ui small feed">
+            <div class="event">
+              <div class="content">
+                <div class="summary">
+                  {props.destination.name}
+                  <i style={{ marginLeft: 20, marginRight: 20 }} class="fas fa-plane"></i>
+                  {props.startFrom.name}
+                  {renderSelectedReturnFlight()}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
       <div class="extra content">
         <div class="header">
-          Tổng tiền: {props.selectedFlight? <span className="ui header red">{props.selectedFlight.totalPrice} VNĐ</span> : null} 
+          Tổng tiền:  <span className="ui header red">{totalPrice} VNĐ</span>
         </div>
       </div>
     </div>
@@ -70,16 +112,25 @@ const selectorPassenger = formValueSelector('passenger');
 
 const mapStateToProps = (state) => {
   const selectedFlight = state.selectedFlight;
-  if(selectedFlight) {
+  if (selectedFlight) {
     const takeOffTime = new Date(selectedFlight.takeOffTime);
     selectedFlight.takeOffTime = takeOffTime.toLocaleString();
     const landingTime = new Date(selectedFlight.landingTime);
     selectedFlight.landingTime = landingTime.toLocaleString();
   }
+  const selectedReturnFlight = state.selectedReturnFlight;
+  if(selectedReturnFlight) {
+    const takeOffTime = new Date(selectedReturnFlight.takeOffTime);
+    selectedReturnFlight.takeOffTime = takeOffTime.toLocaleString();
+    const landingTime = new Date(selectedReturnFlight.landingTime);
+    selectedReturnFlight.landingTime = landingTime.toLocaleString();
+  }
   return {
     startFrom: selector(state, 'startFrom'),
     destination: selector(state, 'destination'),
     selectedFlight: selectedFlight,
+    selectedReturnFlight: selectedReturnFlight,
+    type: selector(state, 'type'),
     passenger: selectorPassenger(state, 'firstName', 'lastName', 'passengerId'),
   }
 }

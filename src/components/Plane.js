@@ -14,7 +14,7 @@ function Plane(props) {
             <ol className="seats" type="A">
             {row.seats.map(seat => {
               return (
-                <Seat seat={seat} />
+                <Seat seat={seat} return={props.return}/>
               )
             })}
             </ol>
@@ -22,24 +22,6 @@ function Plane(props) {
       }
     </ol>
   )
-  /*const renderSeats = props.cabinFuselage.map(cabin => {
-    return (
-      <ol className="cabin fuselage" key={cabin.index}>
-        {
-          cabin.rows.map(row => 
-            <li className="row" key={row.rowIndex}>
-              <ol className="seats" type="A">
-              {row.seats.map(seat => {
-                return (
-                  <Seat seat={seat} />
-                )
-              })}
-              </ol>
-            </li>)
-        }
-      </ol>
-    )
-  }); */
   
   return (
     <div className="plane">

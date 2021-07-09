@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { selectSeat, removeSeat } from '../actions';
+import { selectSeat, removeSeat, selectReturnSeat, removeReturnSeat } from '../actions';
 
 function Seat(props) {
   const seat = props.seat;
@@ -19,10 +19,24 @@ function Seat(props) {
     }
   }
 
+  function onClickReturnSeat() {
+    let isSelected = false;
+    console.log(props.selectedReturnSeat);
+    if(props.selectedReturnSeat[seat.id] != undefined) {
+      isSelected = true;
+    }
+    console.log(isSelected);
+    if(isSelected) {
+      props.removeReturnSeat(seat);
+    } else {
+      props.selectReturnSeat(seat);
+    }
+  }
+
   return (
     <li class="seat" key={seat.id}>
       <input type="checkbox" disabled={seat.occupied} id={seat.id} />
-      <label onClick={onClickSeat} htmlFor={seat.id}>{seat.id}</label>
+      <label onClick={props.return ? onClickReturnSeat : onClickSeat} htmlFor={seat.id}>{seat.id}</label>
     </li>
   )
 }
@@ -30,7 +44,8 @@ function Seat(props) {
 const mapStateToProps = (state, ownProps) => {
   return {
     selectedSeat : state.selectedSeat,
+    selectedReturnSeat: state.selectedReturnSeat
   }
 }
 
-export default connect(mapStateToProps, { selectSeat, removeSeat })(Seat)
+export default connect(mapStateToProps, { selectSeat, removeSeat, selectReturnSeat, removeReturnSeat })(Seat)

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import BookingInFor from './BookingInFor';
 import { formValueSelector } from 'redux-form';
 import { Link, Redirect } from 'react-router-dom';
-import { searchFlights } from '../actions';
+import { searchFlights, searchReturnFlights } from '../actions';
 import ListFlight from './ListFlight';
 import './SelectFlight.css'
 
@@ -16,9 +16,18 @@ function SelectFlight(props) {
         destination: props.destination._id,
         passenger: 1 
       });
+      if(props.type === 'roundtrip') {
+        props.searchReturnFlights({
+          date: props.returnDay,
+          start: props.destination._id,
+          destination:  props.startFrom._id,
+          passenger: 1 
+        });
+      }
     }
   }, []);
-
+  const departureDay = new Date(props.departureDay).toLocaleDateString();
+  const returnDay = new Date(props.returnDay).toLocaleDateString();
   const renderFlights = () => {
     if (!props.flights) {
       return <div>Loading...</div>
@@ -28,7 +37,15 @@ function SelectFlight(props) {
           <div className="ten wide column">
           {props.flights.length === 0 ? <div>Không có chuyến bay nào.</div> : 
             <>
-              <ListFlight flights={props.flights} />
+              <h3>Chuyến bay đi: {departureDay}</h3>
+              <ListFlight type="oneway" flights={props.flights} />
+              {
+                props.type === 'roundtrip' && 
+                <>
+                  <h3>Chuyến bay về: {returnDay}</h3>
+                  <ListFlight type="roundtrip" flights={props.returnFlights} />
+                </>
+              }
               <div className="div" style={{ display: 'flex', justifyContent: 'space-evenly', marginTop: '35px'}}>
                 <Link to="/" className="ui button">
                   Quay lại
@@ -55,15 +72,16 @@ function SelectFlight(props) {
     <div>
       <div className="ui container wrapper">
         <div className="search__info">
-          <h3>CHUYẾN BAY MỘT CHIỀU | 1 Người lớn</h3>
+          {props.type === 'oneway' && <h3>CHUYẾN BAY MỘT CHIỀU | 1 Người lớn</h3>}
+          {props.type === 'roundtrip' && <h3>CHUYẾN BAY KHỨ HỒI | 1 Người lớn</h3>}
           <div className="desciption">
             <p style={{ marginRight: 20 }}>
               <i style={{ marginRight: 10 }} className="fas fa-map-marker-alt"></i>
-              Điểm Khởi hành <span>{props.startFrom.name}</span>
+              Điểm Khởi hành: <span>{props.startFrom.name}</span>
             </p>
             <p>
               <i style={{ marginRight: 10 }} className="fas fa-map-marker-alt"></i>
-              Điểm đến <span>{props.destination.name}</span>
+              Điểm đến: <span>{props.destination.name}</span>
             </p>
           </div>
         </div>
@@ -83,9 +101,11 @@ const mapStateToProps = (state) => {
     startFrom: selector(state, 'startFrom'),
     destination: selector(state, 'destination'),
     departureDay: selector(state, 'departureDay'),
+    returnDay: selector(state, 'returnDay'),
     type: selector(state, 'type'),
-    flights: Object.values(state.flights)
+    flights: Object.values(state.flights),
+    returnFlights: Object.values(state.returnFlights)
   }
 }
 
-export default connect(mapStateToProps, { searchFlights })(SelectFlight);
+export default connect(mapStateToProps, { searchFlights, searchReturnFlights })(SelectFlight);
