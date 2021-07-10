@@ -3,6 +3,7 @@ import React from 'react';
 import Seat from './Seat';
 
 import './Plane.css';
+import ReturnSeat from './ReturnSeat';
 
 function Plane(props) {
   const { cabin } = props;
@@ -14,7 +15,24 @@ function Plane(props) {
             <ol className="seats" type="A">
             {row.seats.map(seat => {
               return (
-                <Seat seat={seat} return={props.return}/>
+                <Seat seat={seat}/>
+              )
+            })}
+            </ol>
+          </li>)
+      }
+    </ol>
+  )
+
+  const renderReturnSeats = (
+    <ol className="cabin fuselage">
+      {
+        cabin.rows.map(row => 
+          <li className="row" key={row.rowIndex}>
+            <ol className="seats" type="A">
+            {row.seats.map(seat => {
+              return (
+                <ReturnSeat seat={seat}/>
               )
             })}
             </ol>
@@ -31,7 +49,7 @@ function Plane(props) {
       </div>
       <div className="exit exit--front fuselage">
       </div>
-      {renderSeats}
+      {props.return ? renderReturnSeats: renderSeats}
       <div className="exit exit--back fuselage">
 
       </div>

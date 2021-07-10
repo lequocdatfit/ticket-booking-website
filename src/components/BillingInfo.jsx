@@ -49,35 +49,78 @@ function BillingInfo(props) {
 
   const onSubmit = (formValues) => {
     // Đặt vé
-    const { passenger } = props;
-    const { selectedFlight } = props;
-    Booking.post('/booking/ticket', {
-      buyerName : passenger.firstName + ' ' + passenger.lastName,
-      buyerId: passenger.passengerId,
-      phoneNumber: passenger.phone,
-      email: passenger.email,
-      address: passenger.address,
-      dateOfBirth: passenger.birthDay,
-      nationality: passenger.country,
-      status: true,
-      ticketInfos: [
-        {
-          flightId: selectedFlight._id, 
-          passenger: passenger.firstName + ' ' + passenger.lastName,
-          passengerId: passenger.passengerId,
-          phoneNumber: passenger.phone,
-          type: selectedFlight.type,
-          price: selectedFlight.totalPrice,
-          seat: props.selectedSeat[0] ? props.selectedSeat[0].id : '',
-          status: true
-        }
-      ]
-    }).then(res => {
-      props.createTicket(res.data);
-      history.push('/booking-success');
-    }).catch(err => {
-      console.log(err);
-    })
+    const { type } = props;
+    if(type === 'oneway') {
+      const { passenger } = props;
+      const { selectedFlight } = props;
+      Booking.post('/booking/ticket', {
+        buyerName : passenger.firstName + ' ' + passenger.lastName,
+        buyerId: passenger.passengerId,
+        phoneNumber: passenger.phone,
+        email: passenger.email,
+        address: passenger.address,
+        dateOfBirth: passenger.birthDay,
+        nationality: passenger.country,
+        status: true,
+        ticketInfos: [
+          {
+            flightId: selectedFlight._id, 
+            passenger: passenger.firstName + ' ' + passenger.lastName,
+            passengerId: passenger.passengerId,
+            phoneNumber: passenger.phone,
+            type: selectedFlight.type,
+            price: selectedFlight.totalPrice,
+            seat: props.selectedSeat[0] ? props.selectedSeat[0].id : '',
+            status: true
+          },
+        ]
+      }).then(res => {
+        props.createTicket(res.data);
+        history.push('/booking-success');
+      }).catch(err => {
+        console.log(err);
+      })
+    } else if(type ==='roundtrip') {
+      const { passenger } = props;
+      const { selectedFlight, selectedReturnFlight} = props;
+      Booking.post('/booking/ticket', {
+        buyerName : passenger.firstName + ' ' + passenger.lastName,
+        buyerId: passenger.passengerId,
+        phoneNumber: passenger.phone,
+        email: passenger.email,
+        address: passenger.address,
+        dateOfBirth: passenger.birthDay,
+        nationality: passenger.country,
+        status: true,
+        ticketInfos: [
+          {
+            flightId: selectedFlight._id, 
+            passenger: passenger.firstName + ' ' + passenger.lastName,
+            passengerId: passenger.passengerId,
+            phoneNumber: passenger.phone,
+            type: selectedFlight.type,
+            price: selectedFlight.totalPrice,
+            seat: props.selectedSeat[0] ? props.selectedSeat[0].id : '',
+            status: true
+          },
+          {
+            flightId: selectedReturnFlight._id, 
+            passenger: passenger.firstName + ' ' + passenger.lastName,
+            passengerId: passenger.passengerId,
+            phoneNumber: passenger.phone,
+            type: selectedReturnFlight.type,
+            price: selectedReturnFlight.totalPrice,
+            seat: props.selectedReturnSeat[0] ? props.selectedReturnSeat[0].id : '',
+            status: true
+          }
+        ]
+      }).then(res => {
+        props.createTicket(res.data);
+        history.push('/booking-success');
+      }).catch(err => {
+        console.log(err);
+      })
+    }
   }
 
   const renderServices = () => {
@@ -183,7 +226,11 @@ const mapStateToProps = (state) => {
     flights: Object.values(state.flights),
     selectedFlight: state.selectedFlight,
     passenger: selector(state, 'firstName', 'lastName', 'address', 'email', 'phone', 'birthDay', 'country', 'passengerId'),
-    selectedSeat: Object.values(state.selectedSeat)
+    selectedSeat: Object.values(state.selectedSeat),
+
+    selectedReturnFlight: state.selectedReturnFlight,
+    selectedReturnSeat: Object.values(state.selectedReturnSeat),
+
   }
 }
 
