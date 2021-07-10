@@ -1,5 +1,6 @@
 const bookingModel = require("../model/bookings.model");
 const ticketModel = require("../model/tickets.model");
+const flightModel = require("../model/flights.model");
 const emailHelper = require("../helper/email.helper");
 const validation = require("../helper/verify.helper");
 
@@ -84,6 +85,26 @@ module.exports.deleteBooking = (req, res) => {
     });
 };
 
+let changeSeat = async (ticketObject) => {
+  let flight = await flightModel.findById(ticketObject.flightId);
+  for (let i = 0; i < flight.cabinFuselage.length; i++) {
+    if (flight.cabinFuselage[i].type == ticketObject.type) {
+      for (let j = 0; j < flight.cabinFuselage[i].rows.length; j++) {
+        for (let k = 0; k < flight.cabinFuselage[i].rows[j].seats.length; k++) {
+          if (
+            flight.cabinFuselage[i].rows[j].seats[k].id == ticketObject.seat
+          ) {
+            flight.cabinFuselage[i].rows[j].seats[k].occupied = true;
+            await flightModel.update(flight._id, {
+              cabinFuselage: flight.cabinFuselage,
+            });
+          }
+        }
+      }
+    }
+  }
+};
+
 module.exports.createBookingAndTickets = async (req, res) => {
   let ticketInfos;
   if (req.body.hasOwnProperty("ticketInfos")) {
@@ -111,6 +132,7 @@ module.exports.createBookingAndTickets = async (req, res) => {
   req.body.tickets = [];
   req.body.totalPrice = 0;
   ticketObjects.forEach((element) => {
+    changeSeat(element);
     req.body.tickets.push(element._id);
     req.body.totalPrice += element.price;
   });
