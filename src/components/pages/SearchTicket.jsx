@@ -4,7 +4,7 @@ import { TextField } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import searchBooking from '../../api/searchBooking';
-
+import SearchImg from '../../public/images/searchBooking.jpg';
 
 
 const renderTextField = ({ input, label, meta }) => {
@@ -110,8 +110,7 @@ function SearchTicket(props) {
               </div>
             }
           </div>
-          <div className="cardRight">
-          </div>
+          <img className="searchImg" src={SearchImg} alt="searchImg" />
         </div>
       </div>
     </div>
