@@ -18,6 +18,7 @@
   min-height: 100vh;
   width: 100%;
   border-radius: 12px;
+  overflow: hidden;
 }
 
 .formLeft {
@@ -29,14 +30,15 @@
   font-size: 20px;
 }
 
-.cardRight {
+/* .cardRight {
   flex: 3.5;
   background-image: url('../../public/images/searchBooking.jpg');
   background-position: center;
   background-size: cover;
   overflow: hidden;
   position: static;
-}
+} */
+
 
 .searchTicketButton {
   padding: 12px 32px;
