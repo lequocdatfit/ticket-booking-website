@@ -30,7 +30,7 @@ module.exports.findById = (req, res) => {
 
 module.exports.findByPNR = (req, res) => {
   bookingModel
-    .find({ pnr: req.params.pnr })
+    .find({ pnr: req.params.pnr, buyerName: req.query.fullname })
     .then((result) => {
       res.status(200).json(result);
     })
