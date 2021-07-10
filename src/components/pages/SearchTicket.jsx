@@ -68,6 +68,13 @@ function SearchTicket(props) {
                     <div className="event">
                       <div className="content">
                         <div className="summary">
+                          <span>Loại vé: {booking.tickets.length === 2 ? 'Khứ hồi' : 'Một chiều'}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="event">
+                      <div className="content">
+                        <div className="summary">
                           <span>Hành khách: {booking.buyerName}</span>
                         </div>
                       </div>
@@ -75,9 +82,13 @@ function SearchTicket(props) {
                     <div className="event">
                       <div className="content">
                         <div className="summary">
+                          Chuyến đi: 
                           {booking.tickets[0].flightId.startFrom.name}
-                          <i style={{ marginLeft: 20, marginRight: 20 }} class="fas fa-plane"></i>
+                          <i style={{ marginLeft: 20, marginRight: 20 }} className="fas fa-plane"></i>
                           {booking.tickets[0].flightId.destination.name}
+                          <div>
+                            Khoang: {booking.tickets[0].type}   Ghế: {booking.tickets[0].seat}
+                          </div>
                           <div>
                             <span>Khởi hành lúc: {booking.tickets[0].flightId.takeOffTime}</span>
                             <div> Hạ cánh lúc: {booking.tickets[0].flightId.landingTime}</div>
