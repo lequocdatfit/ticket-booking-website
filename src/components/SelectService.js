@@ -5,13 +5,14 @@ import ListService from './ListService';
 import { connect } from 'react-redux';
 import { formValueSelector } from 'redux-form';
 import Modal from './Modal';
+import './selectService.css'
 
 
 function SelectService(props) {
   const renderServices = () => {
     return (
       <div className="ui container grid" style={{ marginTop: 20 }}>
-        <div className="ten wide column">
+        <div className="eleven wide column">
           <ListService />
           <div className="div" style={{ display: 'flex', justifyContent: 'space-evenly', marginTop: '35px' }}>
             <Link to="/passengers" className="ui button">
@@ -22,7 +23,7 @@ function SelectService(props) {
             </Link>
           </div>
         </div>
-        <div className="six wide column">
+        <div className="five wide column">
           <BookingInFor />
         </div>
       </div>
@@ -32,7 +33,7 @@ function SelectService(props) {
     return <Redirect to="/" />
 
   return (
-    <div>
+    <div className="serviceBackground">
       <div className="ui container wrapper">
         <div className="search__info">
           {props.type === 'oneway' && <h3>CHUYẾN BAY MỘT CHIỀU | 1 Người lớn</h3>}

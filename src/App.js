@@ -10,6 +10,7 @@ import './App.css';
 import BillingInfo from './components/BillingInfo';
 import BookingSuccess from './components/BookingSuccess';
 import SearchTicket from './components/pages/SearchTicket';
+import Footer from './components/Footer';
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
       <Route path="/select-service" exact component={SelectService} />
       <Route path="/billing-info" exact component={BillingInfo} />
       <Route path="/booking-success" exact component={BookingSuccess} />
+      <Footer />
     </Router>
   )
 }

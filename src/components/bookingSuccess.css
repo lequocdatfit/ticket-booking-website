@@ -3,7 +3,8 @@
   align-items: center;
   justify-content: center;
   height: 90vh;
-  background-color: rgb(195, 193, 178);
+  background-image: url('../public/images/img-home.jpg');
+  min-height: 100vh;
 }
 
 .ticket {

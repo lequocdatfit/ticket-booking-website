@@ -8,6 +8,7 @@ import { Field, reduxForm } from 'redux-form';
 import { createTicket } from '../actions'
 import Booking from '../api/Booking';
 import history from '../history';
+import './billingInfo.css'
 
 const cardOptions = [
   { value: 'Visa', text: 'Visa' },
@@ -126,7 +127,7 @@ function BillingInfo(props) {
   const renderServices = () => {
     return (
       <div className="ui container grid" style={{ marginTop: 20 }}>
-        <div className="ten wide column">
+        <div className="eleven wide column">
           <Form onSubmit={props.handleSubmit(onSubmit)}>
             <h4 className="ui dividing header">Thông tin thanh toán</h4>
             <div className="field">
@@ -179,7 +180,7 @@ function BillingInfo(props) {
           </Form>
 
         </div>
-        <div className="six wide column">
+        <div className="five wide column">
           <BookingInFor />
         </div>
       </div>
@@ -190,7 +191,7 @@ function BillingInfo(props) {
     return <Redirect to="/" />
 
   return (
-    <div>
+    <div className="billingBackground">
       <div className="ui container wrapper">
         <div className="search__info">
           {props.type === 'oneway' && <h3>CHUYẾN BAY MỘT CHIỀU | 1 Người lớn</h3>}

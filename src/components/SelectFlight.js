@@ -34,15 +34,15 @@ function SelectFlight(props) {
     } else {
       return (
         <div className="ui container grid" style={{ marginTop: 20 }}>
-          <div className="ten wide column">
+          <div className="eleven wide column">
           {props.flights.length === 0 ? <div>Không có chuyến bay nào.</div> : 
             <>
-              <h3>Chuyến bay đi: {departureDay}</h3>
+              <h3 className="ui header customHeader">Chuyến bay đi: {departureDay}</h3>
               <ListFlight type="oneway" flights={props.flights} />
               {
                 props.type === 'roundtrip' && 
                 <>
-                  <h3>Chuyến bay về: {returnDay}</h3>
+                  <h3 className="ui header customHeader">Chuyến bay về: {returnDay}</h3>
                   <ListFlight type="roundtrip" flights={props.returnFlights} />
                 </>
               }
@@ -58,7 +58,7 @@ function SelectFlight(props) {
           }
             
           </div>
-          <div className="six wide column">
+          <div className="five wide column customSixColumn">
             <BookingInFor />
           </div>
 
@@ -69,7 +69,7 @@ function SelectFlight(props) {
   if(!props.startFrom)
     return <Redirect to="/" />
   return (
-    <div>
+    <div className="backgroundCustom">
       <div className="ui container wrapper">
         <div className="search__info">
           {props.type === 'oneway' && <h3>CHUYẾN BAY MỘT CHIỀU | 1 Người lớn</h3>}

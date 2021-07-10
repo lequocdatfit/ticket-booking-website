@@ -5,13 +5,14 @@ import { formValueSelector } from 'redux-form';
 import { Link, Redirect } from 'react-router-dom';
 
 import PassengerInput from './PassengerInput';
+import './passengers.css'
 
 function Passengers(props) {
 
   const renderPassengers = () => {
     return (
       <div className="ui container grid" style={{ marginTop: 20 }}>
-        <div className="ten wide column">
+        <div className="eleven wide column">
           <PassengerInput />
           <div className="div" style={{ display: 'flex', justifyContent: 'space-evenly', marginTop: '35px' }}>
             <Link to="/select-flight" className="ui button">
@@ -22,7 +23,7 @@ function Passengers(props) {
             </Link>
           </div>
         </div>
-        <div className="six wide column">
+        <div className="five wide column">
           <BookingInFor />
         </div>
 
@@ -33,7 +34,7 @@ function Passengers(props) {
     return <Redirect to="/" />
 
   return (
-    <div>
+    <div className="passengerBackground">
       <div className="ui container wrapper">
         <div className="search__info">
           {props.type === 'oneway' && <h3>CHUYẾN BAY MỘT CHIỀU | 1 Người lớn</h3>}

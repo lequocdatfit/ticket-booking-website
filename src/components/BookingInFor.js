@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { formValueSelector } from 'redux-form';
+import './bookingInfo.css';
 
 function BookingInFor(props) {
   const renderSelectFlight = () => {
@@ -13,10 +14,10 @@ function BookingInFor(props) {
         <div>Hạ cánh lúc: {props.selectedFlight.landingTime}</div>
         <div>Loại vé: {props.selectedFlight.type}</div>
         <div className="ui content">
-          Giá vé: <span className="ui header red">{props.selectedFlight.price.value} VNĐ</span>
+          Giá vé: <span className="ui header red">{parseInt(props.selectedFlight.price.value).toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span>
         </div>
         <div className="ui content">
-          Thuế: <span className="ui header red">{props.selectedFlight.price.tax} VNĐ</span>
+          Thuế: <span className="ui header red">{parseInt(props.selectedFlight.price.tax).toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span>
         </div>
       </div>
     )
@@ -31,10 +32,10 @@ function BookingInFor(props) {
         <div>Hạ cánh lúc: {props.selectedReturnFlight.landingTime}</div>
         <div>Loại vé: {props.selectedReturnFlight.type}</div>
         <div className="ui content">
-          Giá vé: <span className="ui header red">{props.selectedReturnFlight.price.value} VNĐ</span>
+          Giá vé: <span className="ui header red">{parseInt(props.selectedReturnFlight.price.value).toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span>
         </div>
         <div className="ui content">
-          Thuế: <span className="ui header red">{props.selectedReturnFlight.price.tax} VNĐ</span>
+          Thuế: <span className="ui header red">{parseInt(props.selectedReturnFlight.price.tax).toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span>
         </div>
       </div>
     )
@@ -48,7 +49,7 @@ function BookingInFor(props) {
     totalPrice += props.selectedReturnFlight.totalPrice;
   }
   return (
-    <div class="ui card">
+    <div class="ui card customCard">
       <div class="content">
         <div class="header">Thông tin đặt chỗ</div>
       </div>
@@ -100,7 +101,7 @@ function BookingInFor(props) {
       }
       <div class="extra content">
         <div class="header">
-          Tổng tiền:  <span className="ui header red">{totalPrice} VNĐ</span>
+          Tổng tiền:  <span className="ui header red">{totalPrice.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span>
         </div>
       </div>
     </div>

@@ -34,7 +34,7 @@ function BookingSuccess(props) {
                   {flight.startFrom.name}
                   <i style={{ marginLeft: 20, marginRight: 20 }} class="fas fa-plane"></i>
                   {flight.destination.name}
-                  {props.selectedSeat &&
+                  {props.selectedSeat && props.selectedSeat[0] &&
                     <p>Khoang: {props.flight.type}  Ghế: {props.selectedSeat[0].id}</p>
                   }
                   <div>
@@ -48,7 +48,7 @@ function BookingSuccess(props) {
                             {returnFlight.startFrom.name}
                             <i style={{ marginLeft: 20, marginRight: 20 }} class="fas fa-plane"></i>
                             {returnFlight.destination.name}
-                            {props.selectedReturnSeat &&
+                            {props.selectedReturnSeat && props.selectedReturnSeat[0] &&
                               <p>Khoang: {props.returnFlight.type}  Ghế: {props.selectedReturnSeat[0].id}</p>
                             }
                             <div>
@@ -61,7 +61,7 @@ function BookingSuccess(props) {
                       </div>
                     }
                     <div className="ui content">
-                      Tổng giá vé: <span className="ui header red">{ticket.totalPrice} VNĐ</span>
+                      Tổng giá vé: <span className="ui header red">{ticket.totalPrice.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span>
                     </div>
                   </div>
                 </div>
