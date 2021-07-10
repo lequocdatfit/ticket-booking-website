@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { selectSeat, removeSeat, selectReturnSeat, removeReturnSeat } from '../actions';
+import { selectSeat, removeSeat } from '../actions';
 
 function Seat(props) {
   const seat = props.seat;
@@ -19,24 +19,14 @@ function Seat(props) {
     }
   }
 
-  function onClickReturnSeat() {
-    let isSelected = false;
-    console.log(props.selectedReturnSeat);
-    if(props.selectedReturnSeat[seat.id] != undefined) {
-      isSelected = true;
-    }
-    console.log(isSelected);
-    if(isSelected) {
-      props.removeReturnSeat(seat);
-    } else {
-      props.selectReturnSeat(seat);
-    }
-  }
-
   return (
     <li class="seat" key={seat.id}>
-      <input type="checkbox" disabled={seat.occupied} id={seat.id} />
-      <label onClick={props.return ? onClickReturnSeat : onClickSeat} htmlFor={seat.id}>{seat.id}</label>
+      <input type="checkbox" id={seat.id} 
+        checked={props.selectedSeat && props.selectedSeat[seat.id] 
+          && props.selectedSeat[seat.id].id === seat.id}
+        disabled={seat.occupied}
+        onChange={onClickSeat} />
+      <label htmlFor={seat.id}>{seat.id}</label>
     </li>
   )
 }
@@ -44,8 +34,7 @@ function Seat(props) {
 const mapStateToProps = (state, ownProps) => {
   return {
     selectedSeat : state.selectedSeat,
-    selectedReturnSeat: state.selectedReturnSeat
   }
 }
 
-export default connect(mapStateToProps, { selectSeat, removeSeat, selectReturnSeat, removeReturnSeat })(Seat)
+export default connect(mapStateToProps, { selectSeat, removeSeat })(Seat)

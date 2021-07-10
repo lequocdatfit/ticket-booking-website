@@ -52,10 +52,10 @@ function ListService(props) {
         <>
           <h3>Chuyến về</h3>
           <Plane
-          return={true}
-          airliner={props.returnFlight.airliner}
-          cabin={props.returnFlight.cabinFuselage[cabinIndex2]}
-          type={props.returnFlight.type} />
+            return={true}
+            airliner={props.returnFlight.airliner}
+            cabin={props.returnFlight.cabinFuselage[cabinIndex2]}
+            type={props.returnFlight.type} />
         </>
       }
 
