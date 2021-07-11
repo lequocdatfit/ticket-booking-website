@@ -28,16 +28,18 @@ function ListFlights(props) {
 
   const columns = [
     { field: 'id', headerName: 'ID', width: 80 },
-    { field: 'takeOffTime', headerName: 'Take-off time', width: 130 },
-    { field: 'landingTime', headerName: 'landing time', width: 130 },
+    { field: 'takeOffTime', headerName: 'Take-off time', width: 140, 
+      valueFormatter: ({value}) => new Date(value).toLocaleString() },
+    { field: 'landingTime', headerName: 'landing time', width: 140, 
+      valueFormatter: ({value}) => new Date(value).toLocaleString() },
     { 
-      field: 'startFrom', headerName: 'Start From', width: 130, 
+      field: 'startFrom', headerName: 'Start From', width: 120, 
       valueFormatter: ({value}) => value.name
     },
-    { field: 'destination', headerName: 'Destination', width: 130, 
+    { field: 'destination', headerName: 'Destination', width: 120, 
       valueFormatter: ({value}) => value.name
     },
-    { field: 'type', headerName: 'Type', width: 110 },
+    { field: 'type', headerName: 'Type', width: 100 },
     { field: 'airliner', headerName: 'Airliner', width: 130,
       valueFormatter: ({value}) => value.manufacturer + ' ' + value.model },
     { field: 'action', headerName: 'Actions', width: 200, renderCell : (params) => {
@@ -109,7 +111,8 @@ function ListFlights(props) {
 const mapStateToProps = (state) => {
   const flights = Object.values(state.flights);
   flights.forEach((flight, index) => {
-    flight.id = flight.flightId
+    flight.id = flight.flightId;
+    
   });
   const bookings = Object.values(state.bookings);
   bookings.forEach((booking, index) => {

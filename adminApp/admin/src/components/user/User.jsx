@@ -54,7 +54,7 @@ function User(props) {
             <span className="userShowTitle">Account Details</span>
             <div className="userShowInfo">
               <CalendarToday className="userShowIcon" />
-              <span className="userShowInfoTitle">{props.admin.dateCreated}</span>
+              <span className="userShowInfoTitle">{new Date(props.admin.dateCreated).toLocaleDateString()}</span>
             </div>
             <span className="userShowTitle">Contact Details</span>
             <div className="userShowInfo">
@@ -65,10 +65,7 @@ function User(props) {
               <MailOutline className="userShowIcon" />
               <span className="userShowInfoTitle">{props.admin.email}</span>
             </div>
-            <div className="userShowInfo">
-              <LocationSearching className="userShowIcon" />
-              <span className="userShowInfoTitle">New York | USA</span>
-            </div>
+            
           </div>
         </div>
         <div className="userUpdate">

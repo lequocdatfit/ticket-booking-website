@@ -9,14 +9,15 @@ function BookingList(props) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedBooking, setSelectedBooking] = useState(null);
   const columns = [
-    { field: 'id', headerName: 'ID', width: 70 },
-    //{ field: 'pnr', headerName: 'PNR', width: 130 },
+    { field: 'id', headerName: 'ID', width: 40 },
+    { field: 'pnr', headerName: 'PNR', width: 100 },
     { field: 'buyerName', headerName: "Buyer's Name", width: 130 },
     { field: 'buyerId', headerName: "Buyer's ID", width: 130 },
     { field: 'phoneNumber', headerName: "Phone Number", width: 130 },
     { field: 'address', headerName: "Address", width: 130 },
-    { field: 'nationality', headerName: "Nation", width: 130 },
-    { field: 'totalPrice', headerName: "TotalPrice", width: 130 },
+    { field: 'nationality', headerName: "Nation", width: 100 },
+    { field: 'totalPrice', headerName: "TotalPrice", width: 130, 
+      valueFormatter: ({value}) => value.toLocaleString('it-IT', { style: 'currency', currency: 'VND' }) },
     {
       field: 'actions',
       headerName: 'Actions',

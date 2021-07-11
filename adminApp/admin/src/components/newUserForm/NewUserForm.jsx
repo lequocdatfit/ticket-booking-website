@@ -55,7 +55,7 @@ function newUserForm(props) {
       <Field name="phoneNumber" component={renderNumber} label="Phone Number" />
       <Field name="password" component={renderPassword} label="Password" />
       <Field name="checkpass" component={renderPassword} label="Re-enter password" />
-      <button className="ui button" type="submit">Submit</button>
+      <button className="ui primary button" type="submit">Submit</button>
     </form>
   )
 }
