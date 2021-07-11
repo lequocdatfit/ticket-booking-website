@@ -35,9 +35,9 @@ const destinations = [
 
 function FormBooking(props) {
 
-  useEffect(() => {
-    props.fetchAirports();
-  }, [])
+  // useEffect(() => {
+  //   props.fetchAirports();
+  // }, [])
 
   const onSubmit = (formValues) => {
     history.push('/select-flight');
@@ -103,9 +103,7 @@ const renderSelect = ({ input, options, label, meta }) => {
         {...input}
         label="Điểm khởi hành"
       >
-        <MenuItem value="">
-          <em>None</em>
-        </MenuItem>
+        
         {options.map((item) => {
           return <MenuItem key={item._id} value={item}>{item.name}</MenuItem>
         })}
@@ -182,6 +180,7 @@ const mapStateToProps = state => {
     type: selector(state, 'type'),
     initialValues: {
       takeOffTime: new Date().toISOString(),
+      startFrom: selector(state, 'startFrom'),
       type: 'roundtrip'
     },
   }

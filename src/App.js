@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Router as Router, Link, Route } from 'react-router-dom';
 import NavBar from './components/Navbar';
 import Home from './components/pages/Home';
@@ -11,9 +11,14 @@ import BillingInfo from './components/BillingInfo';
 import BookingSuccess from './components/BookingSuccess';
 import SearchTicket from './components/pages/SearchTicket';
 import Footer from './components/Footer';
+import { fetchAirports } from './actions';
+import { connect } from 'react-redux';
 
 
-function App() {
+function App(props) {
+  useEffect(() => {
+    props.fetchAirports();
+  }, [])
   return (
     <Router history={history} >
       <NavBar />
@@ -30,4 +35,4 @@ function App() {
 }
 
 
-export default App;
+export default connect(null, {fetchAirports})(App);

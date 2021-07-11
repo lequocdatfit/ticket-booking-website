@@ -1,27 +1,31 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, lazy, Suspense } from 'react';
 import { connect } from 'react-redux';
 import BookingInFor from './BookingInFor';
 import { formValueSelector } from 'redux-form';
 import { Link, Redirect } from 'react-router-dom';
 import { searchFlights, searchReturnFlights } from '../actions';
-import ListFlight from './ListFlight';
-import './SelectFlight.css'
+//import ListFlight from './ListFlight';
+import logo from '../public/images/logo192.png';
+import ThreeDots from './ThreeDots';
+import './SelectFlight.css';
+const ListFlight = lazy(() => import('./ListFlight'));
+
 
 function SelectFlight(props) {
   useEffect(() => {
-    if(props.startFrom) {
-        props.searchFlights({
+    if (props.startFrom) {
+      props.searchFlights({
         date: props.departureDay,
         start: props.startFrom._id,
         destination: props.destination._id,
-        passenger: 1 
+        passenger: 1
       });
-      if(props.type === 'roundtrip') {
+      if (props.type === 'roundtrip') {
         props.searchReturnFlights({
           date: props.returnDay,
           start: props.destination._id,
-          destination:  props.startFrom._id,
-          passenger: 1 
+          destination: props.startFrom._id,
+          passenger: 1
         });
       }
     }
@@ -30,43 +34,46 @@ function SelectFlight(props) {
   const returnDay = new Date(props.returnDay).toLocaleDateString();
   const renderFlights = () => {
     if (!props.flights) {
-      return <div>Loading...</div>
+      return <div></div>
     } else {
       return (
+
         <div className="ui container grid" style={{ marginTop: 20 }}>
           <div className="eleven wide column">
-          {props.flights.length === 0 ? <div>Không có chuyến bay nào.</div> : 
-            <>
-              <h3 className="ui header customHeader">Chuyến bay đi: {departureDay}</h3>
-              <ListFlight type="oneway" flights={props.flights} />
-              {
-                props.type === 'roundtrip' && 
+            <Suspense fallback={ThreeDots}>
+              {props.flights.length === 0 ? <div>Không có chuyến bay nào.</div> :
                 <>
-                  <h3 className="ui header customHeader">Chuyến bay về: {returnDay}</h3>
-                  <ListFlight type="roundtrip" flights={props.returnFlights} />
+                  <h3 className="ui header customHeader">Chuyến bay đi: {departureDay}</h3>
+                  <ListFlight type="oneway" flights={props.flights} />
+                  {
+                    props.type === 'roundtrip' &&
+                    <>
+                      <h3 className="ui header customHeader">Chuyến bay về: {returnDay}</h3>
+                      <ListFlight type="roundtrip" flights={props.returnFlights} />
+                    </>
+                  }
+                  <div className="div" style={{ display: 'flex', justifyContent: 'space-evenly', marginTop: '35px' }}>
+                    <Link to="/" className="ui button">
+                      Quay lại
+                    </Link>
+                    <Link to="/passengers" className="ui button primary">
+                      Tiếp tục
+                    </Link>
+                  </div>
                 </>
               }
-              <div className="div" style={{ display: 'flex', justifyContent: 'space-evenly', marginTop: '35px'}}>
-                <Link to="/" className="ui button">
-                  Quay lại
-                </Link>
-                <Link to="/passengers" className="ui button primary">
-                  Tiếp tục
-                </Link>
-              </div>
-            </>
-          }
-            
+            </Suspense>
           </div>
           <div className="five wide column customSixColumn">
             <BookingInFor />
           </div>
 
         </div>
+
       )
     }
   }
-  if(!props.startFrom)
+  if (!props.startFrom)
     return <Redirect to="/" />
   return (
     <div className="backgroundCustom">
