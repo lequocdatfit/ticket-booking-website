@@ -6,8 +6,8 @@ import './Modal.css';
 function Modal(props) {
 
   return ReactDOM.createPortal(
-    <div onClick={() => history.push('/select-service')} className="ui dimmer modals visible active">
-      <div onClick={(e) => e.stopPropagation()} className="ui large standard modal visible active customModal">
+    <div onClick={() => history.push('/select-service')} className="ui dimmer modals visible active customModal">
+      <div onClick={(e) => e.stopPropagation()} className="ui large standard modal visible active">
         <div className="header">{props.header}</div>
         <div className="scrolling content">
           {props.content}
