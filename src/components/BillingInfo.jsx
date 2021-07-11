@@ -13,7 +13,7 @@ import './billingInfo.css'
 const cardOptions = [
   { value: 'Visa', text: 'Visa' },
   { value: 'American Express', text: 'American Express' },
-  { value: 'Discover', text: 'Discover' }
+  { value: 'Mastercard', text: 'Mastercard' }
 ]
 
 const renderSelectField = ({ input, label, placeholder }) => {

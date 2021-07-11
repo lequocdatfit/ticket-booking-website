@@ -52,7 +52,7 @@ function SelectFlight(props) {
                       <ListFlight type="roundtrip" flights={props.returnFlights} />
                     </>
                   }
-                  <div className="div" style={{ display: 'flex', justifyContent: 'space-evenly', marginTop: '35px' }}>
+                  <div className="div" style={{ display: 'flex', justifyContent: 'space-evenly', marginTop: '35px', marginBottom: '40px' }}>
                     <Link to="/" className="ui button">
                       Quay lại
                     </Link>
