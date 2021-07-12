@@ -9,6 +9,7 @@ function Plane(props) {
   const { cabin } = props;
   const renderSeats = (
     <ol className="cabin fuselage">
+      <form>
       {
         cabin.rows.map(row => 
           <li className="row" key={row.rowIndex}>
@@ -21,23 +22,26 @@ function Plane(props) {
             </ol>
           </li>)
       }
+      </form>
     </ol>
   )
 
   const renderReturnSeats = (
     <ol className="cabin fuselage">
-      {
-        cabin.rows.map(row => 
-          <li className="row" key={row.rowIndex}>
-            <ol className="seats" type="A">
-            {row.seats.map(seat => {
-              return (
-                <ReturnSeat seat={seat}/>
-              )
-            })}
-            </ol>
-          </li>)
-      }
+      <form>
+        {
+          cabin.rows.map(row => 
+            <li className="row" key={row.rowIndex}>
+              <ol className="seats" type="A">
+              {row.seats.map(seat => {
+                return (
+                  <ReturnSeat seat={seat}/>
+                )
+              })}
+              </ol>
+            </li>)
+        }
+      </form>
     </ol>
   )
   
@@ -49,7 +53,7 @@ function Plane(props) {
       </div>
       <div className="exit exit--front fuselage">
       </div>
-      {props.return ? renderReturnSeats: renderSeats}
+        {props.return ? renderReturnSeats: renderSeats}
       <div className="exit exit--back fuselage">
 
       </div>

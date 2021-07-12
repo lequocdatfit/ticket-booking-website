@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { selectReturnSeat, removeReturnSeat } from '../actions';
+import shortid from 'shortid';
 
 function Seat(props) {
   const seat = props.seat;
-
+  const id = shortid.generate();
   function onClickReturnSeat() {
     let isSelected = false;
     console.log(props.selectedReturnSeat);
@@ -21,12 +22,12 @@ function Seat(props) {
 
   return (
     <li class="seat" key={seat.id}>
-      <input type="checkbox" id={seat.id} 
+      <input type="checkbox" id={id} 
         checked={props.selectedReturnSeat && props.selectedReturnSeat[seat.id]
            && props.selectedReturnSeat[seat.id].id === seat.id}
         disabled={seat.occupied}
         onChange={onClickReturnSeat} />
-      <label htmlFor={seat.id}>{seat.id}</label>
+      <label htmlFor={id}>{seat.id}</label>
     </li>
   )
 }

@@ -13,6 +13,7 @@ import {
 import Flight from "../api/Flight";
 import history from '../history';
 import Airport from '../api/Airport';
+import {reset} from 'redux-form';
 
 export const searchFlights = (query) => {
   return async dispatch => {
@@ -97,4 +98,8 @@ export const createTicket = (ticket) => {
     type: CREATE_TICKET,
     payload: ticket
   }
+}
+
+export const resetAllForm = () => async dispatch => {
+  dispatch(reset('passenger'));
 }
