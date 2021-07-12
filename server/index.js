@@ -23,7 +23,7 @@ var corsOption = {
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-//app.use(cors(corsOption));
+app.use(cors());
 
 app.get("/", (req, res) => {
   res.json({ success: true });
