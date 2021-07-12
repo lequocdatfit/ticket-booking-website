@@ -32,6 +32,9 @@ function SearchTicket(props) {
         const landingTime = new Date(data.tickets[0].flightId.landingTime);
         data.tickets[0].flightId.takeOffTime = takeOffTime.toLocaleString();
         data.tickets[0].flightId.landingTime = landingTime.toLocaleString();
+        data.tickets[1].flightId.takeOffTime = takeOffTime.toLocaleString();
+        data.tickets[1].flightId.landingTime = landingTime.toLocaleString();
+
         setBooking(data);
       })
       .catch(error => {
