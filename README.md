@@ -1,8 +1,8 @@
 # Ticket booking web
 
-- Technologies: 
- Front-end: React, Redux, Material-UI, Semantic-UI
- Back-end: Nodejs, Expressjs, JWT, MongoDB.
+<h2>Technologies</h2>
+ <p>* Front-end: React, Redux, Material-UI, Semantic-UI.</p>
+ <p>* Back-end: Nodejs, Expressjs, JWT, MongoDB.</p>
 
 <img data-visualcompletion="media-vc-image" alt="May be an image of calendar and text" class="ji94ytn4 r9f5tntg d2edcug0 r0294ipz" referrerpolicy="origin-when-cross-origin" src="https://scontent.fdad1-1.fna.fbcdn.net/v/t1.6435-9/215235078_1698054920391048_5163335465479529737_n.jpg?_nc_cat=100&amp;ccb=1-5&amp;_nc_sid=730e14&amp;_nc_ohc=mE0EOed7K3IAX_rOND0&amp;_nc_ht=scontent.fdad1-1.fna&amp;oh=ff342cb9e1939d4dd342a129ca742370&amp;oe=61736E5F">
 
